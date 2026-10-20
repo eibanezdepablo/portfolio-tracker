@@ -2,7 +2,7 @@
 
 | Serie | Fuente | Último dato | Puntos | Errores |
 |---|---|---|---|---|
-| i:horos | yahoo:0P0001DFE8.F | 2026-10-19 | 1951 |  |
+| i:horos | yahoo:0P0001DFE8.F | 2026-10-19 | 1950 |  |
 | b:msci_world | yahoo:EUNL.DE | 2026-10-20 | 1982 |  |
 | b:acwi | yahoo:IUSQ.DE | 2026-10-20 | 1982 |  |
 | b:sp500 | yahoo:SXR8.DE | 2026-10-20 | 1982 |  |
