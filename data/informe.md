@@ -2,18 +2,18 @@
 
 | Serie | Fuente | Último dato | Puntos | Errores |
 |---|---|---|---|---|
-| i:fidelity_world | yahoo:0P0001CLDK.F | 2026-10-19 | 1978 |  |
-| i:myi_value | yahoo:0P0001T8V7.F | 2026-10-19 | 416 |  |
-| i:cobas_int | yahoo:0P0001A94B.F | 2026-10-19 | 1128 |  |
-| i:horos | yahoo:0P0001DFE8.F | 2026-10-19 | 1951 |  |
-| i:azvalor_int | yahoo:0P00016YQ5.F | 2026-10-19 | 1805 |  |
+| i:fidelity_world | yahoo:0P0001CLDK.F | 2026-10-19 | 1977 |  |
+| i:myi_value | yahoo:0P0001T8V7.F | 2026-10-19 | 415 |  |
+| i:cobas_int | yahoo:0P0001A94B.F | 2026-10-19 | 1127 |  |
+| i:horos | yahoo:0P0001DFE8.F | 2026-10-19 | 1950 |  |
+| i:azvalor_int | yahoo:0P00016YQ5.F | 2026-10-19 | 1804 |  |
 | i:robeco_premium | yahoo:LU0203975437.LU | 2026-10-19 | 1125 |  |
 | i:jh_small_caps | yahoo:0P0001I1JP.F | 2026-10-20 | 1116 |  |
-| i:jh_life_sciences | yahoo:0P00000ITG.F | 2026-10-19 | 1923 |  |
-| i:polar_tech | yahoo:0P0001LT4H.F | 2026-10-19 | 1498 |  |
-| i:robeco_qi_em | SIN DATOS |  | 0 | morningstar: Funds.__init__() got an unexpected keyword argument 'country' | yahoo_isin: Yahoo sin datos para LU0329355670.SG; Yahoo solo tiene 1 datos para FHQV.F | csv: no existe |
-| i:robeco_energy | SIN DATOS |  | 0 | morningstar: Funds.__init__() got an unexpected keyword argument 'country' | yahoo_isin: Yahoo sin datos para LU2145461757.SG | csv: no existe data/manual/LU2145461757.csv |
-| i:dnb_tech | SIN DATOS |  | 0 | morningstar: Funds.__init__() got an unexpected keyword argument 'country' | yahoo_isin: Yahoo solo tiene 1 datos para CFPM.F | csv: no existe data/manual/LU0302296495.csv |
+| i:jh_life_sciences | yahoo:0P00000ITG.F | 2026-10-19 | 1920 |  |
+| i:polar_tech | yahoo:0P0001LT4H.F | 2026-10-19 | 1497 |  |
+| i:robeco_qi_em | SIN DATOS |  | 0 | morningstar: Message: session not created: Chrome instance exited. Examine ChromeDriver verbose log to determine the cause.; For documentation on this error, please visit: https:// |
+| i:robeco_energy | SIN DATOS |  | 0 | morningstar: Message: session not created: Chrome instance exited. Examine ChromeDriver verbose log to determine the cause.; For documentation on this error, please visit: https:// |
+| i:dnb_tech | SIN DATOS |  | 0 | morningstar: Message: session not created: Chrome instance exited. Examine ChromeDriver verbose log to determine the cause.; For documentation on this error, please visit: https:// |
 | b:msci_world | yahoo:EUNL.DE | 2026-10-19 | 1981 |  |
 | b:acwi | yahoo:IUSQ.DE | 2026-10-19 | 1981 |  |
 | b:sp500 | yahoo:SXR8.DE | 2026-10-19 | 1981 |  |
