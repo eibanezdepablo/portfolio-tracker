@@ -48,9 +48,9 @@ Idioma de la interfaz y de los commits: español.
 ## Estado y pendientes
 - Hecho: app completa (Resumen, Mercado, Desglose, Movimientos), 13 índices, 11 sectores del
   MSCI World con periodo «Hoy», calendario mensual, volatilidad y máxima caída, PWA, sync por gist.
-- El pipeline solo se ha probado con fuentes simuladas: **verificar tickers** de índices y sectores
-  en la primera ejecución real (ver `data/informe.md` o el resumen de la acción) y corregir los que
-  fallen. Comprobar que Horos Value Internacional (ES0146309002) obtiene histórico.
+- Repo público `eibanezdepablo/portfolio-tracker`; app en https://eibanezdepablo.github.io/portfolio-tracker/.
+  Primera ejecución real (2026-10-20): los 13 índices, los 11 sectores y Horos (Yahoo `0P0001DFE8.F`,
+  desde 2019) descargan sin errores. `^IBEX` y `^N225` son índices de precio (sin dividendos).
 - **Importador del export de MyInvestor** (órdenes de fondos en CSV y operaciones de ETFs/acciones),
   incluidos traspasos entre fondos. Pendiente de que el usuario aporte el archivo.
 - Añadir sus fondos reales a `config.yaml` y rellenar distribuciones por región y sector.

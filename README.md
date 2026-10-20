@@ -15,13 +15,13 @@ data/manual/             históricos manuales en CSV si algún fondo no aparece
 
 ## Puesta en marcha (10 minutos)
 
-1. **Crea el repositorio** en GitHub: *New repository*, nombre `cartera`, **público**
+1. **Crea el repositorio** en GitHub: *New repository*, nombre `portfolio-tracker`, **público**
    (GitHub Pages gratis requiere repositorio público; ver *Privacidad* abajo).
 2. **Sube los archivos.** Con git:
    ```bash
-   cd cartera
+   cd portfolio-tracker
    git init -b main && git add . && git commit -m "Primera versión"
-   git remote add origin https://github.com/TU_USUARIO/cartera.git
+   git remote add origin https://github.com/TU_USUARIO/portfolio-tracker.git
    git push -u origin main
    ```
    O desde la web con *Add file → Upload files*, arrastrando todo el contenido
