@@ -1,0 +1,109 @@
+{
+ "instruments": {
+  "horos": {
+   "name": "Horos Value Internacional",
+   "id": "ES0146309002",
+   "type": "Fondo"
+  }
+ },
+ "benchmarks": {
+  "msci_world": {
+   "code": "MXWO",
+   "name": "MSCI World"
+  },
+  "acwi": {
+   "code": "ACWI",
+   "name": "MSCI ACWI"
+  },
+  "sp500": {
+   "code": "SPX",
+   "name": "S&P 500"
+  },
+  "ndx": {
+   "code": "NDX",
+   "name": "Nasdaq 100"
+  },
+  "stoxx600": {
+   "code": "SXXP",
+   "name": "STOXX Europe 600"
+  },
+  "sx5e": {
+   "code": "SX5E",
+   "name": "Euro Stoxx 50"
+  },
+  "ibex": {
+   "code": "IBEX",
+   "name": "IBEX 35"
+  },
+  "msciem": {
+   "code": "MXEF",
+   "name": "MSCI Emerging Markets"
+  },
+  "nikkei": {
+   "code": "NKY",
+   "name": "Nikkei 225"
+  },
+  "worldsc": {
+   "code": "MXWOSC",
+   "name": "MSCI World Small Cap"
+  },
+  "worldval": {
+   "code": "MXWOVL",
+   "name": "MSCI World Value"
+  },
+  "gold": {
+   "code": "XAU",
+   "name": "Oro en euros"
+  },
+  "agg": {
+   "code": "AGG",
+   "name": "Renta fija global"
+  }
+ },
+ "sectors": {
+  "tec": {
+   "name": "Tecnología"
+  },
+  "fin": {
+   "name": "Financiero"
+  },
+  "sal": {
+   "name": "Salud"
+  },
+  "cic": {
+   "name": "Consumo cíclico"
+  },
+  "ind": {
+   "name": "Industria"
+  },
+  "com": {
+   "name": "Comunicación"
+  },
+  "def": {
+   "name": "Consumo defensivo"
+  },
+  "ene": {
+   "name": "Energía"
+  },
+  "mat": {
+   "name": "Materiales"
+  },
+  "inm": {
+   "name": "Inmobiliario"
+  },
+  "uti": {
+   "name": "Utilities"
+  }
+ },
+ "alloc": {
+  "region": {
+   "horos": {}
+  },
+  "sector": {
+   "horos": {}
+  },
+  "asset": {
+   "horos": {}
+  }
+ }
+}
