@@ -9,7 +9,7 @@ inicio: "2019-01-01"        # primer día del histórico que se descarga
 # Fuentes, en orden de prioridad (se usa la primera que funcione):
 #   yahoo: "TICKER"      → Yahoo Finance con ese símbolo
 #   yahoo_isin: true     → busca el ISIN en Yahoo y usa el primer resultado
-#   morningstar: true    → Morningstar por ISIN (útil para fondos españoles)
+#   morningstar: true    → Morningstar por ISIN, API pública (útil para fondos)
 #   csv: "archivo.csv"   → histórico manual en data/manual/ (columnas fecha,precio)
 
 # Tus posiciones. La clave (p. ej. horos) es interna; no la cambies después de usarla.

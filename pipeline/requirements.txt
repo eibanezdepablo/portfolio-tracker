@@ -1,5 +1,4 @@
 yfinance>=0.2.54
-mstarpy>=11.1,<12
 pandas>=2.2
 pyyaml>=6.0
 requests>=2.32

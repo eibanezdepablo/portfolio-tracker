@@ -49,16 +49,35 @@ def yahoo_isin(isin: str, inicio: str, ajustado: bool):
     raise ValueError("; ".join(errores))
 
 
+MS_API = "https://lt.morningstar.com/api/rest.svc"
+MS_KEY = "klr5zyak8x"   # clave pública del buscador de fondos de Morningstar
+
+
 def morningstar(isin: str, inicio: str, ajustado: bool):
-    import mstarpy
-    f = mstarpy.Funds(term=isin, pageSize=1)
-    datos = f.nav(start_date=dt.datetime.fromisoformat(inicio), end_date=dt.datetime.now(), frequency="daily")
+    """Valor liquidativo en EUR desde la API pública de Morningstar (sin navegador ni token)."""
+    import requests
+    h = {"User-Agent": "Mozilla/5.0"}
+    sec = None
+    for universo in ("FOESP$$ALL", "FOALL$$ALL", "ETALL$$ALL"):
+        r = requests.get(f"{MS_API}/{MS_KEY}/security/screener", headers=h, timeout=30, params={
+            "page": 1, "pageSize": 1, "outputType": "json", "languageId": "es-ES", "currencyId": "EUR",
+            "securityDataPoints": "SecId|ISIN", "term": isin, "universeIds": universo})
+        filas = [f for f in r.json().get("rows", []) if f.get("ISIN") == isin] if r.ok else []
+        if filas:
+            sec = filas[0]["SecId"]
+            break
+    if not sec:
+        raise ValueError(f"Morningstar no encuentra {isin}")
+    r = requests.get(f"{MS_API}/timeseries_price/{MS_KEY}", headers=h, timeout=60, params={
+        "id": sec, "currencyId": "EUR", "idtype": "Morningstar", "frequency": "daily",
+        "startDate": inicio, "outputType": "COMPACTJSON"})
+    r.raise_for_status()
+    datos = r.json()
     if not datos:
         raise ValueError(f"Morningstar sin datos para {isin}")
-    df = pd.DataFrame(datos)
-    col = "totalReturn" if ajustado and "totalReturn" in df else "nav"
-    s = _limpia(pd.Series(df[col].values, index=df["date"]))
-    return s, "EUR", f"morningstar:{isin}"
+    fechas = pd.to_datetime([t for t, _ in datos], unit="ms")
+    s = _limpia(pd.Series([v for _, v in datos], index=fechas))
+    return s, "EUR", f"morningstar:{isin} ({sec})"
 
 
 def csv(nombre: str, inicio: str, ajustado: bool):
