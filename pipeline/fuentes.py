@@ -51,7 +51,7 @@ def yahoo_isin(isin: str, inicio: str, ajustado: bool):
 
 def morningstar(isin: str, inicio: str, ajustado: bool):
     import mstarpy
-    f = mstarpy.Funds(term=isin, country="es")
+    f = mstarpy.Funds(term=isin, pageSize=1)
     datos = f.nav(start_date=dt.datetime.fromisoformat(inicio), end_date=dt.datetime.now(), frequency="daily")
     if not datos:
         raise ValueError(f"Morningstar sin datos para {isin}")
