@@ -3,14 +3,14 @@
 App personal de seguimiento de cartera (fondos sobre todo; también ETFs y acciones), inspirada
 en Getquin Premium. Uso principal: **rentabilidad de la cartera frente a índices** y **desgloses**
 (región, sector, activo). Usuario: Enrique, inversor en España (MyInvestor), sabe Python.
-Idioma de la interfaz y de los commits: español.
+Idioma de la interfaz y de los commits: español. El README está en inglés.
 
 ## Arquitectura
 - `index.html`: toda la app en un archivo (HTML + CSS + JS, sin build). Chart.js 4.4.1 por CDN.
   Fuentes de Google: Doto (cifras grandes y títulos), Geist (texto), Geist Mono (etiquetas y datos).
 - `config.yaml`: instrumentos, índices y sectores con sus fuentes de precio.
 - `pipeline/actualizar.py` + `pipeline/fuentes.py`: descargan precios (Yahoo por ticker, Yahoo por
-  ISIN, Morningstar con mstarpy, CSV manual en `data/manual/`), convierten a EUR, rellenan hacia
+  ISIN, Morningstar por su API pública `lt.morningstar.com` (mstarpy ya exige Chrome), CSV manual en `data/manual/`), convierten a EUR, rellenan hacia
   delante sobre días hábiles y escriben `data/prices.json`, `data/meta.json`, `data/informe.md`.
   Si una fuente falla se conserva el histórico previo.
 - `.github/workflows/datos.yml`: ejecuta el pipeline (días laborables 20:30 y 07:00 UTC, en cada
@@ -51,7 +51,11 @@ Idioma de la interfaz y de los commits: español.
 - Repo público `eibanezdepablo/portfolio-tracker`; app en https://eibanezdepablo.github.io/portfolio-tracker/.
   Primera ejecución real (2026-10-20): los 13 índices, los 11 sectores y Horos (Yahoo `0P0001DFE8.F`,
   desde 2019) descargan sin errores. `^IBEX` y `^N225` son índices de precio (sin dividendos).
-- **Importador del export de MyInvestor** (órdenes de fondos en CSV y operaciones de ETFs/acciones),
-  incluidos traspasos entre fondos. Pendiente de que el usuario aporte el archivo.
-- Añadir sus fondos reales a `config.yaml` y rellenar distribuciones por región y sector.
+- Hecho: importador del export de órdenes de fondos de MyInvestor (`salida.xls`, HTML): suscripción →
+  compra, reembolso → venta, traspasos como venta + compra con `via: 'traspaso'`; casa por ISIN, fecha =
+  día cuyo valor liquidativo coincide con el precio neto, deduplica por nº de orden (`ref: myi:<n>`), omite
+  reembolsos sin participaciones previas. No subir nunca el export al repo.
+- Los 12 fondos del usuario están en `config.yaml` (9 por Yahoo `0P…`, 3 por Morningstar). El reembolso
+  de DNB Technology (18-02-2026) necesita la compra original, anterior al export: la añade el usuario.
+- Pendiente: distribuciones por región y sector de cada fondo; importador de ETFs y acciones de MyInvestor.
 - Ideas aceptadas para más adelante: ajustes finos de diseño según el uso.

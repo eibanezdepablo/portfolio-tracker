@@ -327,7 +327,7 @@ nav.bottom button[aria-current="page"] i, nav.desk button[aria-current="page"] i
   <section class="view" id="v-movimientos" hidden>
     <div class="grid bd">
       <div class="cell">
-        <div class="cell-head"><h2 class="title">movimientos</h2><button class="btn small" id="addBtn">Añadir movimiento</button></div>
+        <div class="cell-head"><h2 class="title">movimientos</h2><div class="actions" style="margin:0"><button class="btn ghost small" id="myiBtn">Importar de MyInvestor</button><input type="file" id="myiFile" accept=".xls,.htm,.html" hidden><button class="btn small" id="addBtn">Añadir movimiento</button></div></div>
         <p class="hint" id="txMsg" role="status"></p>
         <div id="txList"></div>
         <div class="actions"><button class="btn ghost small" id="clearBtn">Borrar todos</button></div>
@@ -795,7 +795,7 @@ function renderTxs(){
     const amount = tx.type === 'dividendo' ? tx.amount : tx.units * tx.price + (tx.type === 'compra' ? 1 : -1) * (tx.fee || 0);
     const detail = tx.type === 'dividendo' ? fDate(tx.date) : `${fDate(tx.date)}  ${num(tx.units, tx.units % 1 ? 4 : 0)} × ${num(tx.price, 2)} €`;
     html += `<div class="tx"><div class="ic ${tx.type}" aria-label="${TYPE_L[tx.type]}">${tx.type === 'compra' ? '+' : tx.type === 'venta' ? '−' : '€'}</div>
-      <div style="min-width:0"><div class="n">${esc(I.name)}</div><div class="d">${TYPE_L[tx.type]}  ${detail}</div></div>
+      <div style="min-width:0"><div class="n">${esc(I.name)}</div><div class="d">${TYPE_L[tx.type]}${tx.via === 'traspaso' ? ' por traspaso' : ''}  ${detail}</div></div>
       <div class="r"><div>${fEur.format(amount)}</div><button class="del" data-del="${esc(tx.id)}">${armedDelete === tx.id ? 'Confirmar' : 'Eliminar'}</button></div></div>`;
   }
   el.innerHTML = html;
@@ -953,6 +953,96 @@ $('importFile').onchange = async e => {
     S.txs = txs.map(t => ({ id:t.id || uid(), ...t })).sort((x, y) => x.date.localeCompare(y.date)); changed();
     alertBox(`Importados ${txs.length} movimientos.`);
   } catch (err) { alertBox('El archivo no es una copia válida de la cartera.'); }
+  e.target.value = '';
+};
+
+// ===== Importador del export de órdenes de MyInvestor (HTML con extensión .xls) =====
+// Columnas: fecha operación, fecha liquidación, nº orden, mercado, operación, ISIN, valor,
+// títulos, divisa, precio neto, importe neto. Los traspasos llegan como reembolso + suscripción.
+const MYI = (() => {
+  const toNum = s => { s = s.replace(/\s|€/g, ''); if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.'); return +s; };
+  const toIso = s => { const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/); return m ? `${m[3]}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}` : s; };
+  function parse(html){
+    const doc = new DOMParser().parseFromString(html, 'text/html'), rows = [];
+    for (const tr of doc.querySelectorAll('tr')) {
+      const c = [...tr.cells].map(td => td.textContent.replace(/ /g, ' ').trim());
+      if (c.length < 11) continue;
+      const opDate = toIso(c[0]), settle = toIso(c[1]);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(opDate)) continue;
+      const op = c[4].toUpperCase();
+      const type = /REEMB|VENTA/.test(op) ? 'venta' : /SUSCR|COMPRA/.test(op) ? 'compra' : null;
+      rows.push({ opDate, settle, ref:c[2], op:c[4], type, via: /TRASPASO/.test(op) ? 'traspaso' : undefined,
+        isin:c[5].toUpperCase(), name:c[6], units:toNum(c[7]), currency:c[8].toUpperCase(), price:toNum(c[9]), amount:toNum(c[10]) });
+    }
+    return rows;
+  }
+  // El precio neto es el valor liquidativo de un día que no coincide siempre con la fecha de operación
+  // ni con la de liquidación: se busca ese día en el histórico. Si no aparece, la fecha más temprana.
+  function navDate(inst, r){
+    const lo = r.opDate < r.settle ? r.opDate : r.settle, hi = r.opDate < r.settle ? r.settle : r.opDate;
+    const p = PI[inst];
+    if (p) {
+      const from = E.indexOnOrAfter(DAYS, E.iso(E.toTime(lo) - 10 * E.DAY));
+      const to = Math.min(E.indexOnOrBefore(DAYS, hi), N - 1);
+      for (let t = from; t <= to; t++) if (Math.abs(p[t] / r.price - 1) < 5e-4) return DAYS[t];
+    }
+    return lo;
+  }
+  function build(rows, existing){
+    const byIsin = Object.fromEntries(Object.entries(INSTRUMENTS).map(([k, I]) => [String(I.id).toUpperCase(), k]));
+    const seen = new Set(existing.map(t => t.ref).filter(Boolean));
+    const out = [], dup = [], unknown = new Map(), other = [], noUnits = [];
+    for (const r of rows) {
+      const ref = `myi:${r.ref}`;
+      if (seen.has(ref)) { dup.push(r); continue; }
+      if (!r.type || !(r.units > 0) || !(r.price > 0)) { other.push(r); continue; }
+      if (r.currency && r.currency !== 'EUR') { other.push(r); continue; }
+      const inst = byIsin[r.isin];
+      if (!inst) { unknown.set(r.isin, r.name); continue; }
+      const d = navDate(inst, r), i = E.indexOnOrAfter(DAYS, d);
+      // Comisión = importe neto − títulos × precio; diferencias < 0,1 % son redondeo de las participaciones
+      const gross = r.units * r.price, fee = Math.max(0, r.type === 'compra' ? r.amount - gross : gross - r.amount);
+      out.push({ id:uid(), date: i < N ? DAYS[i] : d, type:r.type, inst, units:r.units, price:r.price,
+        fee: fee > r.amount * 1e-3 ? +fee.toFixed(2) : 0, ref, ...(r.via ? { via:r.via } : {}) });
+      seen.add(ref);
+    }
+    // Un reembolso sin participaciones suficientes (compra anterior al periodo exportado) no se importa
+    const all = [...existing, ...out].sort((x, y) => x.date.localeCompare(y.date) || (x.type === 'venta') - (y.type === 'venta'));
+    const held = {}, skip = new Set();
+    for (const t of all) {
+      if (t.type === 'compra') held[t.inst] = (held[t.inst] || 0) + t.units;
+      if (t.type === 'venta') {
+        if ((held[t.inst] || 0) + 1e-6 < t.units) { if (out.includes(t)) { skip.add(t); noUnits.push(t); } continue; }
+        held[t.inst] -= t.units;
+      }
+    }
+    return { txs: out.filter(t => !skip.has(t)), dup, unknown, other, noUnits };
+  }
+  async function read(file){
+    const buf = await file.arrayBuffer();
+    try { return new TextDecoder('utf-8', { fatal:true }).decode(buf); } catch (e) { return new TextDecoder('windows-1252').decode(buf); }
+  }
+  return { parse, build, read };
+})();
+$('myiBtn').onclick = () => {
+  if (!Object.keys(INSTRUMENTS).length) { alertBox('Añade primero tus fondos en config.yaml y ejecuta la acción “Actualizar datos”.'); return; }
+  $('myiFile').click();
+};
+$('myiFile').onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try {
+    const rows = MYI.parse(await MYI.read(f));
+    if (!rows.length) throw new Error('vacío');
+    const r = MYI.build(rows, S.txs);
+    if (r.txs.length) { S.txs = [...S.txs, ...r.txs].sort((x, y) => x.date.localeCompare(y.date)); changed(); }
+    const n = r.txs.length, tr = r.txs.filter(t => t.via === 'traspaso').length;
+    const msg = [n ? `Importadas ${n} órdenes${tr ? ` (${tr} de traspasos)` : ''}.` : 'No hay órdenes nuevas que importar.'];
+    if (r.dup.length) msg.push(`${r.dup.length} ya estaban.`);
+    if (r.unknown.size) msg.push(`Sin instrumento en config.yaml: ${[...r.unknown].map(([i, nm]) => `${nm} (${i})`).join(', ')}.`);
+    if (r.noUnits.length) msg.push(`No importadas por no tener participaciones antes: ${r.noUnits.map(t => `${INSTRUMENTS[t.inst].name}, ${fDate(t.date)}`).join('; ')}. Añade a mano su compra y vuelve a importar.`);
+    if (r.other.length) msg.push(`${r.other.length} filas con otro tipo de operación o divisa, omitidas.`);
+    renderTxs(); alertBox(msg.join(' '));
+  } catch (err) { alertBox('El archivo no parece un export de órdenes de MyInvestor.'); }
   e.target.value = '';
 };
 
