@@ -11,9 +11,9 @@
 | i:jh_small_caps | yahoo:0P0001I1JP.F | 2026-10-20 | 1116 |  |
 | i:jh_life_sciences | yahoo:0P00000ITG.F | 2026-10-19 | 1920 |  |
 | i:polar_tech | yahoo:0P0001LT4H.F | 2026-10-19 | 1497 |  |
-| i:robeco_qi_em | SIN DATOS |  | 0 | morningstar: Message: session not created: Chrome instance exited. Examine ChromeDriver verbose log to determine the cause.; For documentation on this error, please visit: https:// |
-| i:robeco_energy | SIN DATOS |  | 0 | morningstar: Message: session not created: Chrome instance exited. Examine ChromeDriver verbose log to determine the cause.; For documentation on this error, please visit: https:// |
-| i:dnb_tech | SIN DATOS |  | 0 | morningstar: Message: session not created: Chrome instance exited. Examine ChromeDriver verbose log to determine the cause.; For documentation on this error, please visit: https:// |
+| i:robeco_qi_em | morningstar:LU0329355670 (F000000RB9) | 2026-10-19 | 1912 |  |
+| i:robeco_energy | morningstar:LU2145461757 (F000015UJY) | 2026-10-19 | 1940 |  |
+| i:dnb_tech | morningstar:LU0302296495 (F000000JQ3) | 2026-10-19 | 1904 |  |
 | b:msci_world | yahoo:EUNL.DE | 2026-10-19 | 1981 |  |
 | b:acwi | yahoo:IUSQ.DE | 2026-10-19 | 1981 |  |
 | b:sp500 | yahoo:SXR8.DE | 2026-10-19 | 1981 |  |
