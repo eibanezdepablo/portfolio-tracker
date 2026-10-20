@@ -1,0 +1,59 @@
+# ─────────────────────────────────────────────────────────────
+#  Configuración de la cartera
+#  Edita este archivo para añadir fondos, ETFs, acciones o índices.
+#  Tras guardar, la acción "Actualizar datos" descarga los precios.
+# ─────────────────────────────────────────────────────────────
+
+inicio: "2019-01-01"        # primer día del histórico que se descarga
+
+# Fuentes, en orden de prioridad (se usa la primera que funcione):
+#   yahoo: "TICKER"      → Yahoo Finance con ese símbolo
+#   yahoo_isin: true     → busca el ISIN en Yahoo y usa el primer resultado
+#   morningstar: true    → Morningstar por ISIN (útil para fondos españoles)
+#   csv: "archivo.csv"   → histórico manual en data/manual/ (columnas fecha,precio)
+
+# Tus posiciones. La clave (p. ej. horos) es interna; no la cambies después de usarla.
+instrumentos:
+  horos:
+    nombre: Horos Value Internacional
+    isin: ES0146309002
+    tipo: Fondo
+    fuentes:
+      - yahoo_isin: true
+      - morningstar: true
+      - csv: ES0146309002.csv
+    # Distribuciones para el desglose (en %). Se completarán con los datos reales.
+    region: {}
+    sector: {}
+    activo: {}
+
+# Índices para comparar. Se usan ETFs de acumulación cotizados en euros,
+# que reflejan la rentabilidad total (con dividendos) para un inversor en EUR.
+indices:
+  msci_world: { codigo: MXWO,   nombre: MSCI World,              fuentes: [ { yahoo: EUNL.DE } ] }
+  acwi:       { codigo: ACWI,   nombre: MSCI ACWI,               fuentes: [ { yahoo: IUSQ.DE } ] }
+  sp500:      { codigo: SPX,    nombre: S&P 500,                 fuentes: [ { yahoo: SXR8.DE } ] }
+  ndx:        { codigo: NDX,    nombre: Nasdaq 100,              fuentes: [ { yahoo: SXRV.DE } ] }
+  stoxx600:   { codigo: SXXP,   nombre: STOXX Europe 600,        fuentes: [ { yahoo: EXSA.DE } ] }
+  sx5e:       { codigo: SX5E,   nombre: Euro Stoxx 50,           fuentes: [ { yahoo: SXRT.DE } ] }
+  ibex:       { codigo: IBEX,   nombre: IBEX 35,                 fuentes: [ { yahoo: ^IBEX } ] }
+  msciem:     { codigo: MXEF,   nombre: MSCI Emerging Markets,   fuentes: [ { yahoo: IS3N.DE } ] }
+  nikkei:     { codigo: NKY,    nombre: Nikkei 225,              fuentes: [ { yahoo: ^N225 } ] }
+  worldsc:    { codigo: MXWOSC, nombre: MSCI World Small Cap,    fuentes: [ { yahoo: IUSN.DE } ] }
+  worldval:   { codigo: MXWOVL, nombre: MSCI World Value,        fuentes: [ { yahoo: IS3S.DE } ] }
+  gold:       { codigo: XAU,    nombre: Oro en euros,            fuentes: [ { yahoo: 4GLD.DE } ] }
+  agg:        { codigo: AGG,    nombre: Renta fija global,       fuentes: [ { yahoo: EUNA.DE } ] }
+
+# Sectores del MSCI World (ETFs sectoriales de Xtrackers en Xetra)
+sectores:
+  tec: { nombre: Tecnología,         fuentes: [ { yahoo: XDWT.DE } ] }
+  fin: { nombre: Financiero,         fuentes: [ { yahoo: XDWF.DE } ] }
+  sal: { nombre: Salud,              fuentes: [ { yahoo: XDWH.DE } ] }
+  cic: { nombre: Consumo cíclico,    fuentes: [ { yahoo: XDWC.DE } ] }
+  ind: { nombre: Industria,          fuentes: [ { yahoo: XDWI.DE } ] }
+  com: { nombre: Comunicación,       fuentes: [ { yahoo: XWTS.DE } ] }
+  def: { nombre: Consumo defensivo,  fuentes: [ { yahoo: XDWS.DE } ] }
+  ene: { nombre: Energía,            fuentes: [ { yahoo: XDW0.DE } ] }
+  mat: { nombre: Materiales,         fuentes: [ { yahoo: XDWM.DE } ] }
+  inm: { nombre: Inmobiliario,       fuentes: [ { yahoo: IQQ6.DE } ] }
+  uti: { nombre: Utilities,          fuentes: [ { yahoo: XDWU.DE } ] }
