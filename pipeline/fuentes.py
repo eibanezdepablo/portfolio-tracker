@@ -30,6 +30,8 @@ def yahoo(symbol: str, inicio: str, ajustado: bool):
     s = _limpia(h["Close"])
     if divisa in ("GBp", "GBX"):          # cotizaciones en peniques
         s, divisa = s / 100, "GBP"
+    if len(s) < 30:                       # símbolos casi vacíos (p. ej. un solo cierre)
+        raise ValueError(f"Yahoo solo tiene {len(s)} datos para {symbol}")
     return s, divisa, f"yahoo:{symbol}"
 
 

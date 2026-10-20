@@ -13,19 +13,116 @@ inicio: "2019-01-01"        # primer día del histórico que se descarga
 #   csv: "archivo.csv"   → histórico manual en data/manual/ (columnas fecha,precio)
 
 # Tus posiciones. La clave (p. ej. horos) es interna; no la cambies después de usarla.
+# El importador de MyInvestor las relaciona con tus órdenes por ISIN.
+# Distribuciones por región y sector (en %): pendientes de rellenar con datos reales.
 instrumentos:
+  fidelity_world:
+    nombre: Fidelity MSCI World Index P Acc
+    isin: IE00BYX5NX33
+    tipo: Fondo
+    fuentes: [ { yahoo: 0P0001CLDK.F }, { morningstar: true }, { csv: IE00BYX5NX33.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
+  myi_value:
+    nombre: MyInvestor Value C
+    isin: ES0165243025
+    tipo: Fondo
+    fuentes: [ { yahoo: 0P0001T8V7.F }, { morningstar: true }, { csv: ES0165243025.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
+  cobas_int:
+    nombre: Cobas International P Acc
+    isin: LU1598719752
+    tipo: Fondo
+    fuentes: [ { yahoo: 0P0001A94B.F }, { morningstar: true }, { csv: LU1598719752.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
   horos:
     nombre: Horos Value Internacional
     isin: ES0146309002
     tipo: Fondo
-    fuentes:
-      - yahoo_isin: true
-      - morningstar: true
-      - csv: ES0146309002.csv
-    # Distribuciones para el desglose (en %). Se completarán con los datos reales.
+    fuentes: [ { yahoo: 0P0001DFE8.F }, { morningstar: true }, { csv: ES0146309002.csv } ]
     region: {}
     sector: {}
-    activo: {}
+    activo: { Renta variable: 100 }
+
+  azvalor_int:
+    nombre: Azvalor Internacional
+    isin: ES0112611001
+    tipo: Fondo
+    fuentes: [ { yahoo: 0P00016YQ5.F }, { morningstar: true }, { csv: ES0112611001.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
+  robeco_premium:
+    nombre: Robeco BP Global Premium Equities D
+    isin: LU0203975437
+    tipo: Fondo
+    fuentes: [ { yahoo: LU0203975437.LU }, { morningstar: true }, { csv: LU0203975437.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
+  jh_small_caps:
+    nombre: Janus Henderson Horizon Global Smaller Cos A2
+    isin: LU1984712320
+    tipo: Fondo
+    fuentes: [ { yahoo: 0P0001I1JP.F }, { morningstar: true }, { csv: LU1984712320.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
+  jh_life_sciences:
+    nombre: Janus Henderson Global Life Sciences A2 EUR cubierto
+    isin: IE0002122038
+    tipo: Fondo
+    fuentes: [ { yahoo: 0P00000ITG.F }, { morningstar: true }, { csv: IE0002122038.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
+  polar_tech:
+    nombre: Polar Capital Global Technology R Acc
+    isin: IE00BM95B621
+    tipo: Fondo
+    fuentes: [ { yahoo: 0P0001LT4H.F }, { morningstar: true }, { csv: IE00BM95B621.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
+  robeco_qi_em:
+    nombre: Robeco QI Emerging Markets Active Equities D
+    isin: LU0329355670
+    tipo: Fondo
+    fuentes: [ { morningstar: true }, { yahoo_isin: true }, { csv: LU0329355670.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
+  robeco_energy:
+    nombre: Robeco Smart Energy D
+    isin: LU2145461757
+    tipo: Fondo
+    fuentes: [ { morningstar: true }, { yahoo_isin: true }, { csv: LU2145461757.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
+
+  dnb_tech:
+    nombre: DNB Fund Technology A Acc
+    isin: LU0302296495
+    tipo: Fondo
+    fuentes: [ { morningstar: true }, { yahoo_isin: true }, { csv: LU0302296495.csv } ]
+    region: {}
+    sector: {}
+    activo: { Renta variable: 100 }
 
 # Índices para comparar. Se usan ETFs de acumulación cotizados en euros,
 # que reflejan la rentabilidad total (con dividendos) para un inversor en EUR.
