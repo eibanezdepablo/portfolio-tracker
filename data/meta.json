@@ -1,8 +1,63 @@
 {
  "instruments": {
+  "fidelity_world": {
+   "name": "Fidelity MSCI World Index P Acc",
+   "id": "IE00BYX5NX33",
+   "type": "Fondo"
+  },
+  "myi_value": {
+   "name": "MyInvestor Value C",
+   "id": "ES0165243025",
+   "type": "Fondo"
+  },
+  "cobas_int": {
+   "name": "Cobas International P Acc",
+   "id": "LU1598719752",
+   "type": "Fondo"
+  },
   "horos": {
    "name": "Horos Value Internacional",
    "id": "ES0146309002",
+   "type": "Fondo"
+  },
+  "azvalor_int": {
+   "name": "Azvalor Internacional",
+   "id": "ES0112611001",
+   "type": "Fondo"
+  },
+  "robeco_premium": {
+   "name": "Robeco BP Global Premium Equities D",
+   "id": "LU0203975437",
+   "type": "Fondo"
+  },
+  "jh_small_caps": {
+   "name": "Janus Henderson Horizon Global Smaller Cos A2",
+   "id": "LU1984712320",
+   "type": "Fondo"
+  },
+  "jh_life_sciences": {
+   "name": "Janus Henderson Global Life Sciences A2 EUR cubierto",
+   "id": "IE0002122038",
+   "type": "Fondo"
+  },
+  "polar_tech": {
+   "name": "Polar Capital Global Technology R Acc",
+   "id": "IE00BM95B621",
+   "type": "Fondo"
+  },
+  "robeco_qi_em": {
+   "name": "Robeco QI Emerging Markets Active Equities D",
+   "id": "LU0329355670",
+   "type": "Fondo"
+  },
+  "robeco_energy": {
+   "name": "Robeco Smart Energy D",
+   "id": "LU2145461757",
+   "type": "Fondo"
+  },
+  "dnb_tech": {
+   "name": "DNB Fund Technology A Acc",
+   "id": "LU0302296495",
    "type": "Fondo"
   }
  },
@@ -97,13 +152,70 @@
  },
  "alloc": {
   "region": {
-   "horos": {}
+   "fidelity_world": {},
+   "myi_value": {},
+   "cobas_int": {},
+   "horos": {},
+   "azvalor_int": {},
+   "robeco_premium": {},
+   "jh_small_caps": {},
+   "jh_life_sciences": {},
+   "polar_tech": {},
+   "robeco_qi_em": {},
+   "robeco_energy": {},
+   "dnb_tech": {}
   },
   "sector": {
-   "horos": {}
+   "fidelity_world": {},
+   "myi_value": {},
+   "cobas_int": {},
+   "horos": {},
+   "azvalor_int": {},
+   "robeco_premium": {},
+   "jh_small_caps": {},
+   "jh_life_sciences": {},
+   "polar_tech": {},
+   "robeco_qi_em": {},
+   "robeco_energy": {},
+   "dnb_tech": {}
   },
   "asset": {
-   "horos": {}
+   "fidelity_world": {
+    "Renta variable": 100
+   },
+   "myi_value": {
+    "Renta variable": 100
+   },
+   "cobas_int": {
+    "Renta variable": 100
+   },
+   "horos": {
+    "Renta variable": 100
+   },
+   "azvalor_int": {
+    "Renta variable": 100
+   },
+   "robeco_premium": {
+    "Renta variable": 100
+   },
+   "jh_small_caps": {
+    "Renta variable": 100
+   },
+   "jh_life_sciences": {
+    "Renta variable": 100
+   },
+   "polar_tech": {
+    "Renta variable": 100
+   },
+   "robeco_qi_em": {
+    "Renta variable": 100
+   },
+   "robeco_energy": {
+    "Renta variable": 100
+   },
+   "dnb_tech": {
+    "Renta variable": 100
+   }
   }
  }
 }
