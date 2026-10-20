@@ -15,7 +15,7 @@ Idioma de la interfaz y de los commits: español. El README está en inglés.
   Si una fuente falla se conserva el histórico previo.
 - `.github/workflows/datos.yml`: ejecuta el pipeline (días laborables 20:30 y 07:00 UTC, en cada
   push y a mano), hace commit de `data/` y publica en GitHub Pages (fuente: GitHub Actions).
-- PWA: `manifest.webmanifest`, `sw.js` (red primero, caché si no hay conexión), `icons/`.
+- PWA: `manifest.webmanifest`, `sw.js` (app, Chart.js y fuentes: caché primero y refresco en segundo plano; `data/`: red primero con límite de 3 s, si no caché), `icons/`.
 - Movimientos: `localStorage` + sincronización opcional con un **gist secreto** del usuario
   (token fine-grained solo con permiso de Gists). Exportar/importar copia en JSON.
 - Claves de series en `prices.json`: `i:<instrumento>`, `b:<índice>`, `s:<sector>`.
