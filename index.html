@@ -886,7 +886,7 @@ async function gh(path, opts = {}){
   if (!r.ok) { const err = new Error(String(r.status)); err.status = r.status; throw err; }
   return r.json();
 }
-const syncError = e => setSync('', e.status === 401 ? 'Token no válido' : e.status === 404 ? 'Gist no encontrado' : e.status === 403 ? 'Sin permiso de gist' : 'Sin conexión');
+const syncError = e => setSync('', e.status === 401 ? 'Token no válido o caducado' : e.status === 404 ? 'Gist no encontrado' : e.status === 403 ? 'Sin permiso de gist' : 'Sin conexión');
 async function pull(){
   const g = await gh(`/gists/${SYNC.gist}`), f = g.files && g.files[GIST_FILE];
   if (!f) return null;
@@ -935,7 +935,10 @@ function renderSyncForm(){
 }
 function alertBox(msg){ const el = $('txMsg'); if (el) el.textContent = msg; }
 $('ghConnect').onclick = () => {
-  SYNC.token = $('ghToken').value.trim(); SYNC.gist = $('ghGist').value.trim().replace(/^.*\//, '');
+  // Al pegar en el móvil se cuelan espacios, saltos de línea y caracteres invisibles: fuera todo lo no imprimible
+  const limpio = s => s.replace(/[^\x21-\x7E]/g, '');
+  SYNC.token = limpio($('ghToken').value); SYNC.gist = limpio($('ghGist').value).replace(/^.*\//, '');
+  if (SYNC.token && !/^(github_pat_|ghp_)[A-Za-z0-9_]{20,}$/.test(SYNC.token)) { setSync('', 'Eso no parece un token: debe empezar por github_pat_'); return; }
   setPref('cartera.gh.token', SYNC.token); setPref('cartera.gh.gist', SYNC.gist); renderSyncForm(); syncNow();
 };
 $('ghDisconnect').onclick = () => { SYNC.token = ''; setPref('cartera.gh.token', ''); renderSyncForm(); setSync('', 'Solo este dispositivo'); };
