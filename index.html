@@ -600,7 +600,14 @@ const keysAsLabels = keys => Object.fromEntries(keys.map(k => [k, k]));
 
 // ===== Resumen =====
 let perfChart;
-const BENCH_STYLE = [ { a:.85, dash:[] }, { a:.55, dash:[5,4] }, { a:.4, dash:[1.5,3.5] } ];
+// Colores de las series comparadas, siempre de la paleta: el otro acento, fósforo y gris tinta
+const OTHER_ACCENT = { senal:'#3157FF', cobalto:'#FF4F12' };
+function benchColors(){
+  const pal = document.documentElement.getAttribute('data-palette') === 'cobalto' ? 'cobalto' : 'senal';
+  return [OTHER_ACCENT[pal], css('--pos'), css('--ink-2')];
+}
+// Menos puntos en periodos largos (sin dientes de sierra) y curva suave que no se pasa de los extremos
+const SMOOTH = { tension:.35, cubicInterpolationMode:'monotone' };
 function renderHero(){
   const el = $('hero'), { V, CF, R, NET } = S.res, b = N - 1;
   const sync = `<span class="lab sync ${S.syncState || ''}"><i></i>${esc(S.syncText || 'Conectando')}</span>`;
@@ -653,7 +660,8 @@ function renderPerf(){
   seg($('periodSeg'), keysAsLabels(Object.keys(PERIODS)), S.period, k => { S.period = k; renderPerf(); });
   const bc = $('benchChips');
   bc.style.display = S.mode === 'rent' ? '' : 'none';
-  bc.innerHTML = Object.entries(BENCHMARKS).map(([k, v]) => `<button data-b="${k}" aria-pressed="${S.benches.includes(k)}"><i></i>${esc(v.name)}</button>`).join('');
+  const chipCol = benchColors();
+  bc.innerHTML = Object.entries(BENCHMARKS).map(([k, v]) => { const j = S.benches.indexOf(k); return `<button data-b="${k}" aria-pressed="${j >= 0}"><i${j >= 0 ? ` style="border-top-color:${chipCol[j]}; border-top-width:2px"` : ''}></i>${esc(v.name)}</button>`; }).join('');
   bc.onclick = e => { const b = e.target.closest('[data-b]'); if (!b) return; const k = b.dataset.b;
     if (S.benches.includes(k)) { if (S.benches.length > 1) S.benches = S.benches.filter(x => x !== k); }
     else { S.benches = [...S.benches, k].slice(-3); }
@@ -661,7 +669,7 @@ function renderPerf(){
   const r = range(S.period), stats = $('stats'), legend = $('legend');
   if (!r) { stats.innerHTML = ''; legend.innerHTML = ''; if (perfChart) { perfChart.destroy(); perfChart = null; } return; }
   const { a, b } = r, m = E.period(DAYS, S.res, a, b), risk = riskStats(a, b);
-  const step = Math.max(1, Math.ceil((b - a + 1) / 360));
+  const step = Math.max(1, Math.ceil((b - a + 1) / 110));
   const idx = []; for (let t = a; t <= b; t += step) idx.push(t); if (idx[idx.length - 1] !== b) idx.push(b);
   const { W, V, NET } = S.res;
   const accent = css('--accent'), ink = css('--ink'), muted = css('--muted'), line = css('--line');
@@ -669,14 +677,15 @@ function renderPerf(){
   const lineSvg = (color, dash, w) => `<svg width="22" height="6" aria-hidden="true"><line x1="0" y1="3" x2="22" y2="3" stroke="${color}" stroke-width="${w}" stroke-dasharray="${dash.join(' ')}"/></svg>`;
   let datasets;
   if (isPct) {
-    datasets = [{ label:'Cartera', data: idx.map(t => (W[t] / m.base - 1) * 100), borderColor:accent, borderWidth:2, fill:false, tension:0, pointRadius:0, pointHoverRadius:3, pointHoverBackgroundColor:accent, order:0 }];
-    S.benches.forEach((k, i) => { const P = BP[k], st = BENCH_STYLE[i];
-      datasets.push({ label:BENCHMARKS[k].name, data: idx.map(t => (P[t] / P[a] - 1) * 100), borderColor:rgba(ink, st.a), borderWidth:1.2, borderDash:st.dash, fill:false, tension:0, pointRadius:0, pointHoverRadius:2, order:1 }); });
+    datasets = [{ label:'Cartera', data: idx.map(t => (W[t] / m.base - 1) * 100), borderColor:accent, borderWidth:2.2, fill:false, ...SMOOTH, pointRadius:0, pointHoverRadius:3, pointHoverBackgroundColor:accent, order:0 }];
+    const bcol = benchColors();
+    S.benches.forEach((k, i) => { const P = BP[k];
+      datasets.push({ label:BENCHMARKS[k].name, data: idx.map(t => (P[t] / P[a] - 1) * 100), borderColor:bcol[i], borderWidth:1.5, fill:false, ...SMOOTH, pointRadius:0, pointHoverRadius:2, pointHoverBackgroundColor:bcol[i], order:1 }); });
     legend.innerHTML = `<div>${lineSvg(accent, [], 2)}<span>Cartera · TTWROR</span><span class="${cls(m.twr)}">${pct(m.twr)}</span></div>` +
-      S.benches.map((k, i) => { const P = BP[k], rr = P[b] / P[a] - 1, st = BENCH_STYLE[i]; return `<div>${lineSvg(rgba(ink, st.a), st.dash, 1.2)}<span>${esc(BENCHMARKS[k].name)}</span><span class="${cls(rr)}">${pct(rr)}</span></div>`; }).join('');
+      S.benches.map((k, i) => { const P = BP[k], rr = P[b] / P[a] - 1; return `<div>${lineSvg(bcol[i], [], 1.5)}<span>${esc(BENCHMARKS[k].name)}</span><span class="${cls(rr)}">${pct(rr)}</span></div>`; }).join('');
   } else {
     datasets = [
-      { label:'Valor', data: idx.map(t => V[t]), borderColor:accent, borderWidth:2, fill:false, tension:0, pointRadius:0, pointHoverRadius:3 },
+      { label:'Valor', data: idx.map(t => V[t]), borderColor:accent, borderWidth:2.2, fill:false, ...SMOOTH, pointRadius:0, pointHoverRadius:3 },
       { label:'Aportado neto', data: idx.map(t => NET[t]), borderColor:rgba(ink, .55), borderWidth:1.2, borderDash:[5,4], stepped:true, fill:false, pointRadius:0, pointHoverRadius:2 },
     ];
     legend.innerHTML = `<div>${lineSvg(accent, [], 2)}<span>Valor</span><span>${fEur0.format(V[b])}</span></div><div>${lineSvg(rgba(ink, .55), [5,4], 1.2)}<span>Aportado neto</span><span>${fEur0.format(NET[b])}</span></div>`;
