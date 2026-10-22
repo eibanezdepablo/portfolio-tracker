@@ -213,7 +213,7 @@ nav.desk{display:none}
 
 /* Navegación inferior */
 nav.bottom{position:fixed; left:0; right:0; bottom:0; z-index:30; background:var(--bg); border-top:1px solid var(--line);
-  display:grid; grid-template-columns:repeat(4,1fr); padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+  display:grid; grid-template-columns:repeat(5,1fr); padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
 nav.bottom button, nav.desk button{border:0; background:none; display:flex; flex-direction:column; align-items:center; gap:4px; padding:7px 4px; color:var(--muted);
   font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase}
 nav.bottom button i, nav.desk button i{width:6px; height:6px; border-radius:50%; background:transparent; border:1px solid currentColor}
@@ -248,6 +248,112 @@ nav.bottom button[aria-current="page"] i, nav.desk button[aria-current="page"] i
   .bd{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); align-items:start}
   .treemap{height:420px}
 }
+
+/* Mapa de calor de índices (estilo Finviz) */
+.hm-bar{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:10px}
+.hm-crumb{display:flex; gap:8px; align-items:center; min-height:22px; margin-bottom:8px}
+.hm-crumb button{border:1px solid var(--line-2); background:none; border-radius:999px; padding:2px 9px; font-family:var(--mono); font-size:11px; color:var(--ink-2)}
+.hmap{position:relative; width:100%; height:560px; border-radius:10px; overflow:hidden; background:var(--line); touch-action:manipulation; user-select:none; -webkit-user-select:none}
+.hmap > div{position:absolute; overflow:hidden; box-sizing:border-box}
+.hmap .hs{background:var(--panel); border-radius:3px}
+.hmap .hs > span{position:absolute; left:4px; top:1px; right:4px; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; pointer-events:none}
+.hmap .hs.zoomable{cursor:zoom-in}
+.hmap .hi{background:transparent}
+.hmap .hi > span{position:absolute; left:3px; top:0; right:3px; font-family:var(--mono); font-size:9px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; pointer-events:none}
+.hmap .hk{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; line-height:1.05; cursor:pointer; border-radius:2px; color:var(--ink)}
+.hmap .hk b{font-family:var(--mono); font-weight:500; display:block; max-width:100%; overflow:hidden; white-space:nowrap}
+.hmap .hk small{font-family:var(--mono); display:block; opacity:.85}
+.hmap .hk.dk{color:#0A0A0A} .hmap .hk.lt{color:#FFFFFF}
+.hmap .hk:hover{outline:1.5px solid var(--ink); outline-offset:-1.5px; z-index:2}
+.hm-legend{display:flex; align-items:center; gap:2px; margin-top:10px; font-family:var(--mono); font-size:10px; color:var(--muted)}
+.hm-legend i{flex:1; height:10px; border-radius:2px}
+.hm-legend span{padding:0 6px}
+.movers{display:grid; grid-template-columns:1fr; gap:18px; margin-top:16px}
+.card-tip{position:fixed; z-index:60; max-width:280px; background:var(--panel); color:var(--ink); border:1px solid var(--line-2); border-radius:12px; padding:10px 12px; font-size:12px; line-height:1.45; pointer-events:none; display:none}
+.card-tip.pin{pointer-events:auto}
+.card-tip .lab{display:block; margin-bottom:3px}
+.card-tip b{font-family:var(--mono); font-weight:500}
+.card-tip .btn{margin-top:8px}
+
+/* Interrogantes con explicación */
+.q{display:inline-flex; align-items:center; justify-content:center; width:15px; height:15px; border-radius:50%; border:1px solid var(--line-2); background:none; color:var(--muted); font-family:var(--mono); font-size:9.5px; line-height:1; padding:0; margin-left:6px; vertical-align:1px; flex:none}
+.q:hover,.q[aria-expanded="true"]{border-color:var(--accent); color:var(--accent)}
+
+/* Análisis de acciones */
+.an{grid-template-columns:minmax(0,1fr)}
+.an .full{grid-column:1/-1}
+.search{position:relative; display:flex; gap:8px; align-items:center}
+.search input{flex:1; min-width:0; background:var(--bg); border:1px solid var(--line-2); border-radius:999px; padding:10px 14px; font-family:var(--mono); font-size:14px}
+.sresults{position:absolute; left:0; right:0; top:calc(100% + 6px); z-index:20; background:var(--panel); border:1px solid var(--line-2); border-radius:14px; overflow:hidden; display:none}
+.sresults button{display:flex; width:100%; gap:10px; justify-content:space-between; border:0; border-top:1px solid var(--line); background:none; padding:9px 14px; text-align:left; font-size:13px}
+.sresults button:first-child{border-top:0}
+.sresults button:hover,.sresults button.on{background:var(--cell)}
+.sresults .lab{white-space:nowrap}
+.recent{display:flex; gap:6px; flex-wrap:wrap; margin-top:10px}
+.recent button{border:1px solid var(--line-2); background:none; border-radius:999px; padding:4px 10px; font-family:var(--mono); font-size:11px; color:var(--ink-2)}
+.st-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; margin-top:18px}
+.st-name{font-size:20px; font-weight:600; line-height:1.15}
+.st-price{font-family:var(--display); font-weight:900; font-size:clamp(40px,11vw,60px); line-height:.9; margin-top:12px}
+.st-price small{font-size:.45em; margin-left:4px}
+.range{position:relative; height:6px; border-radius:3px; background:var(--cell); margin:22px 0 6px}
+.range i{position:absolute; top:-5px; width:3px; height:16px; margin-left:-1.5px; border-radius:2px; background:var(--accent)}
+.range em{position:absolute; top:-4px; width:2px; height:14px; margin-left:-1px; background:var(--ink-2)}
+.range-l{display:flex; justify-content:space-between; gap:8px; font-family:var(--mono); font-size:11px; color:var(--muted)}
+.kv{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0; margin-top:16px; border-top:1px solid var(--line)}
+.kv div{padding:10px 2px 9px; border-bottom:1px solid var(--line)}
+.kv div:nth-child(odd){padding-right:10px; border-right:1px solid var(--line)}
+.kv div:nth-child(even){padding-left:10px}
+.kv b{display:block; font-family:var(--mono); font-weight:500; font-size:15px; margin-top:2px}
+details.about{margin-top:14px; font-size:13px; color:var(--ink-2)}
+details.about summary{cursor:pointer; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.fv-big{font-family:var(--display); font-weight:900; font-size:46px; line-height:.95; margin:16px 0 8px}
+.fv-big small{font-size:.45em; margin-left:4px}
+.fv-tag{display:inline-block; font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:3px 9px; border-radius:999px; border:1px solid currentColor}
+.gauge{position:relative; height:10px; margin:22px 0 6px; border-radius:5px; background:linear-gradient(90deg, var(--neg-fill) 0 33.3%, var(--cell) 33.3% 66.6%, var(--pos-fill) 66.6%)}
+.gauge i{position:absolute; top:-6px; width:4px; height:22px; margin-left:-2px; border-radius:2px; background:var(--ink); outline:2px solid var(--panel)}
+.tbl{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12px; margin-top:12px}
+.tbl th{font-weight:400; color:var(--muted); text-align:right; padding:6px 6px; white-space:nowrap}
+.tbl td{text-align:right; padding:8px 6px; border-top:1px solid var(--line); white-space:nowrap}
+.tbl th:first-child,.tbl td:first-child{text-align:left; padding-left:0}
+.tbl td:first-child{font-family:var(--sans); font-size:13px; color:var(--ink)}
+.tbl tr.me td{color:var(--accent)} .tbl tr.me td:first-child{font-weight:600; color:var(--accent)}
+.tbl tr.pick td:first-child{cursor:pointer; text-decoration:underline; text-decoration-color:var(--line-2); text-underline-offset:3px}
+.tbl td.best{text-decoration:underline; text-decoration-color:var(--pos-fill); text-decoration-thickness:2px; text-underline-offset:3px}
+.tbl-wrap{overflow-x:auto}
+.recbar{display:flex; height:12px; gap:2px; margin:14px 0 8px}
+.recbar i{display:block; border-radius:2px}
+.recl{display:flex; flex-wrap:wrap; gap:4px 14px; font-family:var(--mono); font-size:11px; color:var(--ink-2)}
+.recl span::before{content:""; display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px; background:var(--c); vertical-align:0}
+.score{display:flex; gap:3px}
+.score i{width:16px; height:8px; border-radius:2px; background:var(--cell)}
+.score i.on{background:var(--ink)}
+.score.top i.on{background:var(--accent)}
+.hrow{display:grid; grid-template-columns:minmax(0,1fr) auto 2.6rem; gap:12px; align-items:center; padding:9px 0; border-top:1px solid var(--line); font-size:13px}
+.hrow .l{display:flex; align-items:center}
+.hrow .v{font-family:var(--mono); text-align:right}
+.mrow{display:grid; grid-template-columns:minmax(0,1.3fr) 4.6rem minmax(0,1fr); gap:12px; align-items:center; padding:9px 0; border-top:1px solid var(--line)}
+.mrow .l{font-size:13px; display:flex; align-items:center; min-width:0}
+.mrow .l span{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.mrow .v{font-family:var(--mono); font-size:13px; text-align:right}
+.mrow .md{font-family:var(--mono); font-size:10px; color:var(--muted); text-align:right; margin-top:2px}
+.strip-cmp{position:relative; height:16px; margin:0 6px}
+.strip-cmp::before{content:""; position:absolute; left:-6px; right:-6px; top:7px; height:2px; border-radius:1px; background:var(--cell)}
+.strip-cmp i{position:absolute; top:4px; width:8px; height:8px; margin-left:-4px; border-radius:50%; background:var(--line-2)}
+.strip-cmp em{position:absolute; top:1px; width:2px; height:14px; margin-left:-1px; background:var(--ink-2)}
+.strip-cmp b{position:absolute; top:2px; width:12px; height:12px; margin-left:-6px; border-radius:50%; background:var(--accent); outline:2px solid var(--panel)}
+.mgroup{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:18px 0 4px}
+.mcols{display:grid; grid-template-columns:minmax(0,1fr); gap:0 28px}
+.fin{display:grid; grid-template-columns:minmax(0,7.5rem) repeat(4,minmax(0,1fr)); gap:6px; align-items:end; padding:10px 0; border-top:1px solid var(--line)}
+.fin .l{font-size:13px; align-self:center; display:flex; align-items:center}
+.fin .c{display:flex; flex-direction:column; align-items:stretch; gap:4px; font-family:var(--mono); font-size:10.5px; text-align:center; color:var(--ink-2); min-width:0}
+.fin .c i{display:block; height:var(--h); min-height:1px; border-radius:2px 2px 0 0; background:var(--ink); opacity:.8}
+.fin .c i.neg{background:var(--neg-fill); opacity:1}
+.fin .c i.last{background:var(--accent); opacity:1}
+.fin .bx{height:56px; display:flex; flex-direction:column; justify-content:flex-end}
+.fin.yrs{border-top:0; padding:2px 0 0} .fin.yrs .c{color:var(--muted)}
+.disclaimer{font-family:var(--mono); font-size:11px; color:var(--muted); margin-top:14px}
+@media (min-width:620px){ .movers{grid-template-columns:1fr 1fr} .kv{grid-template-columns:repeat(4,minmax(0,1fr))} .kv div:nth-child(n){padding:10px 10px 9px; border-right:1px solid var(--line)} .kv div:nth-child(4n){border-right:0} .kv div:nth-child(4n+1){padding-left:2px} }
+@media (min-width:960px){ .an{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} .hmap{height:620px} .mcols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} }
 @media (prefers-reduced-motion: reduce){ .sheet{transition:none} }
 </style>
 </head>
@@ -294,6 +400,15 @@ nav.bottom button[aria-current="page"] i, nav.desk button[aria-current="page"] i
   <section class="view" id="v-mercado" hidden>
     <div class="grid mkt">
       <div class="cell">
+        <div class="cell-head"><h2 class="title">mapa</h2><span class="lab" id="hmAsof"></span></div>
+        <div class="hm-bar"><div class="seg" id="hmIdx" role="group" aria-label="Índice"></div><div class="seg" id="hmPer" role="group" aria-label="Periodo"></div></div>
+        <div class="hm-crumb" id="hmCrumb"></div>
+        <div class="hmap" id="hmap" role="img" aria-label="Mapa de calor del índice por sectores"></div>
+        <div class="hm-legend" id="hmLegend" aria-hidden="true"></div>
+        <p class="fine">Tamaño: capitalización. Color: rentabilidad del periodo. Toca un sector para ampliarlo y una empresa para ver su análisis.</p>
+        <div class="movers"><div><div class="lab" style="margin-bottom:6px">Más suben</div><div class="bars" id="hmUp"></div></div><div><div class="lab" style="margin-bottom:6px">Más bajan</div><div class="bars" id="hmDown"></div></div></div>
+      </div>
+      <div class="cell">
         <div class="cell-head"><h2 class="title">índices</h2><div class="seg" id="heatSeg" role="group" aria-label="Periodo del mapa"></div></div>
         <div class="bars" id="idxBars"></div>
         <p class="fine">Tu cartera aparece en el color de acento, con su TTWROR del mismo periodo.</p>
@@ -323,6 +438,24 @@ nav.bottom button[aria-current="page"] i, nav.desk button[aria-current="page"] i
     </div>
   </section>
 
+  <!-- ACCIONES -->
+  <section class="view" id="v-acciones" hidden>
+    <div class="grid an">
+      <div class="cell full">
+        <div class="search"><input id="stQ" type="search" placeholder="Busca empresa o ticker: Apple, ITX.MC, ASML…" autocomplete="off" spellcheck="false" aria-label="Buscar acción" aria-controls="stRes"><div class="sresults" id="stRes" role="listbox"></div></div>
+        <div class="recent" id="stRecent"></div>
+        <div id="stHead"></div>
+      </div>
+      <div class="cell" id="stFair"></div>
+      <div class="cell" id="stAnalysts"></div>
+      <div class="cell" id="stHealth"></div>
+      <div class="cell" id="stChart"></div>
+      <div class="cell full" id="stMetrics"></div>
+      <div class="cell full" id="stPeers"></div>
+      <div class="cell full" id="stFin"></div>
+    </div>
+  </section>
+
   <!-- MOVIMIENTOS -->
   <section class="view" id="v-movimientos" hidden>
     <div class="grid bd">
@@ -345,6 +478,7 @@ nav.bottom button[aria-current="page"] i, nav.desk button[aria-current="page"] i
 </div>
 
 <nav class="bottom" aria-label="Secciones" id="navBottom"></nav>
+<div class="card-tip" id="tip" role="tooltip"></div>
 
 <div class="sheet-bg" id="sheetBg"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
@@ -581,7 +715,7 @@ function riskStats(a, b){
 }
 
 // ===== Navegación =====
-const VIEWS = { resumen:'Resumen', mercado:'Mercado', desglose:'Desglose', movimientos:'Movimientos' };
+const VIEWS = { resumen:'Resumen', mercado:'Mercado', acciones:'Acciones', desglose:'Desglose', movimientos:'Movimientos' };
 function renderNav(){
   for (const id of ['navBottom', 'navDesk'])
     $(id).innerHTML = Object.entries(VIEWS).map(([k, l]) => `<button data-view="${k}" ${S.view === k ? 'aria-current="page"' : ''}><i></i><span>${l}</span></button>`).join('');
@@ -748,7 +882,7 @@ function bars(rows){
     const w = !isFinite(r.r) ? 0 : Math.abs(r.r) / span * 100;
     const fill = r.mine ? 'var(--accent)' : r.r >= 0 ? 'var(--pos-fill)' : 'var(--neg-fill)';
     const pos = r.r >= 0 ? `left:${z.toFixed(2)}%; width:${w.toFixed(2)}%` : `right:${(100 - z).toFixed(2)}%; width:${w.toFixed(2)}%`;
-    return `<div class="br ${r.mine ? 'mine' : ''}"><div class="l"><div title="${esc(r.name)}">${esc(r.name)}</div>${r.sub ? `<span class="lab">${esc(r.sub)}</span>` : ''}</div>
+    return `<div class="br ${r.mine ? 'mine' : ''}"${r.t ? ` data-open="${esc(r.t)}" style="cursor:pointer"` : ''}><div class="l"><div title="${esc(r.name)}">${esc(r.name)}</div>${r.sub ? `<span class="lab">${esc(r.sub)}</span>` : ''}</div>
       <div class="tr" style="--z:${z.toFixed(2)}%" aria-hidden="true"><i style="${pos}; background:${fill}"></i></div>
       <div class="v ${r.mine ? '' : cls(r.r)}">${pctS(r.r, r.d ?? 1)}</div></div>`;
   }).join('');
@@ -788,6 +922,432 @@ function renderExposure(){
     <div class="drow"><div class="t"><span>${esc(k)}</span><span>${num(w * 100, 1)} %  ${fEur0.format(w * total)}</span></div>
     <div class="b" aria-hidden="true">${Array.from({ length:50 }, (_, i) => `<i class="${i < on ? 'on' : ''}"></i>`).join('')}</div></div>`; }).join('');
   $('bdNote').textContent = ['region', 'sector', 'asset'].includes(S.dim) ? 'Por transparencia: peso de cada posición × distribución de su fondo o ETF. Distribuciones ilustrativas hasta conectar datos reales.' : '';
+}
+
+// ===== Datos de mercado (rama `mercado`): mapa de calor y análisis de acciones =====
+Object.assign(S, { hmIdx:'sp500', hmPer:'Hoy', hmZoom:null, stock:null, stPer:'3A', peerMet:'roe' });
+const MK = { mapa:null, fund:null, metrics:null, det:{}, loading:{}, lastPointer:'mouse' };
+async function getJSON(p){ const r = await fetch(p, { cache:'no-cache' }); if (!r.ok) throw new Error(`${p}: ${r.status}`); return r.json(); }
+function once(key, fn){ return MK.loading[key] ||= fn().catch(e => { delete MK.loading[key]; throw e; }); }
+const loadMapa = () => once('mapa', async () => { MK.mapa = await getJSON('data/mercado/mapa.json'); });
+const loadFund = () => once('fund', async () => { MK.fund = (await getJSON('data/mercado/fundamentales.json')).s; MK.metrics = null; });
+const loadDet = t => once('d:' + t, async () => { MK.det[t] = await getJSON(`data/mercado/acciones/${encodeURIComponent(t)}.json`); });
+
+const SEC_ES = { 'Technology':'Tecnología', 'Information Technology':'Tecnología', 'Financial Services':'Financiero', 'Financials':'Financiero',
+  'Healthcare':'Salud', 'Health Care':'Salud', 'Consumer Cyclical':'Consumo cíclico', 'Consumer Discretionary':'Consumo cíclico',
+  'Consumer Defensive':'Consumo defensivo', 'Consumer Staples':'Consumo defensivo', 'Communication Services':'Comunicación',
+  'Industrials':'Industria', 'Energy':'Energía', 'Basic Materials':'Materiales', 'Materials':'Materiales', 'Real Estate':'Inmobiliario', 'Utilities':'Utilities' };
+const secES = s => SEC_ES[s] || s || 'Otros';
+const fBig = new Intl.NumberFormat('es-ES', { notation:'compact', maximumFractionDigits:1 });
+const big = x => x == null || !isFinite(x) ? '—' : fBig.format(x);
+const median = a => { const v = a.filter(x => x != null && isFinite(x)).sort((x, y) => x - y); if (!v.length) return null; const m = v.length >> 1; return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2; };
+const Q = tip => `<button class="q" type="button" aria-label="Explicación" data-tip="${esc(tip)}">?</button>`;
+const shortT = t => t.replace(/\.[A-Z]{1,3}$/, '');
+const nameOf = t => MK.mapa?.s[t]?.n || MK.fund?.[t]?.n || t;
+
+// ----- Tarjeta flotante (mapa y explicaciones) -----
+const tipEl = $('tip');
+function showTip(html, x, y, pin){
+  tipEl.innerHTML = html; tipEl.style.display = 'block'; tipEl.classList.toggle('pin', !!pin);
+  const r = tipEl.getBoundingClientRect(); let L = x + 12, T = y + 12;
+  if (L + r.width > innerWidth - 8) L = Math.max(8, x - r.width - 12);
+  if (T + r.height > innerHeight - 8) T = Math.max(8, y - r.height - 12);
+  tipEl.style.left = `${L}px`; tipEl.style.top = `${T}px`;
+}
+function hideTip(){ tipEl.style.display = 'none'; tipEl.classList.remove('pin'); document.querySelectorAll('.q[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false')); }
+document.addEventListener('mouseover', e => { const q = e.target.closest?.('.q'); if (q && !tipEl.classList.contains('pin')) { const r = q.getBoundingClientRect(); showTip(esc(q.dataset.tip), r.left, r.bottom); } });
+document.addEventListener('mouseout', e => { if (e.target.closest?.('.q') && !tipEl.classList.contains('pin')) hideTip(); });
+document.addEventListener('click', e => {
+  const q = e.target.closest('.q');
+  if (q) { const open = q.getAttribute('aria-expanded') === 'true'; hideTip(); if (!open) { const r = q.getBoundingClientRect(); showTip(esc(q.dataset.tip), r.left, r.bottom, true); q.setAttribute('aria-expanded', 'true'); } return; }
+  const o = e.target.closest('[data-open]'); if (o) { hideTip(); openStock(o.dataset.open); return; }
+  const z = e.target.closest('[data-hmz]'); if (z) { S.hmZoom = z.dataset.hmz || null; hideTip(); renderHeatmap(); return; }
+  if (tipEl.classList.contains('pin') && !e.target.closest('#tip') && !e.target.closest('.hk')) hideTip();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') hideTip(); });
+addEventListener('scroll', () => { if (tipEl.style.display === 'block') hideTip(); }, { passive:true });
+
+// ----- Mapa de calor -----
+const HM_PER = { 'Hoy':0, '1S':1, '1M':2, '3M':3, 'YTD':4, '1A':5 };
+const HM_SCALE = [.03, .06, .1, .15, .25, .3];
+function hmColor(r, scale){
+  if (r == null || !isFinite(r)) return { bg:'var(--cell)', c:'' };
+  const k = Math.min(Math.abs(r) / scale, 1);
+  return { bg:`color-mix(in srgb, var(${r >= 0 ? '--pos-fill' : '--neg-fill'}) ${Math.round(10 + 90 * k)}%, var(--cell))`, c: k > .55 ? (r >= 0 ? 'dk' : 'lt') : '' };
+}
+// Treemap «squarified»: items ordenados de mayor a menor, cada uno con .v
+function squarify(items, x, y, w, h){
+  const out = [], total = items.reduce((s, i) => s + i.v, 0);
+  if (!total || w <= 1 || h <= 1) return out;
+  let rest = items.filter(i => i.v > 0).map(i => ({ it:i, a:i.v * w * h / total }));
+  while (rest.length) {
+    const side = Math.min(w, h); let row = [], sum = 0, best = Infinity;
+    for (const c of rest) {
+      const s = sum + c.a, mx = Math.max(c.a, ...row.map(r => r.a)), mn = Math.min(c.a, ...row.map(r => r.a));
+      const worst = Math.max(side * side * mx / (s * s), s * s / (side * side * mn));
+      if (worst > best) break;
+      best = worst; row.push(c); sum = s;
+    }
+    if (w >= h) { const cw = sum / h; let yy = y; for (const c of row) { const ch = c.a / cw; out.push({ it:c.it, x, y:yy, w:cw, h:ch }); yy += ch; } x += cw; w -= cw; }
+    else { const ch = sum / w; let xx = x; for (const c of row) { const cw = c.a / ch; out.push({ it:c.it, x:xx, y, w:cw, h:ch }); xx += cw; } y += ch; h -= ch; }
+    rest = rest.slice(row.length);
+  }
+  return out;
+}
+function stockCard(t){
+  const s = MK.mapa.s[t], pi = HM_PER[S.hmPer], r = s.r?.[pi];
+  return `<span class="lab">${esc(t)} · ${esc(secES(s.sec))}${s.ind ? ' · ' + esc(s.ind) : ''}</span><div style="font-weight:600">${esc(s.n)}</div>
+    <div><b class="${cls(r)}">${pct(r)}</b> <span class="lab">${S.hmPer}</span>${s.p != null ? `  ·  <b>${num(s.p, 2)}</b> ${esc(s.ccy || '')}` : ''}</div>
+    <span class="lab" style="margin-top:4px">Capitalización ${big(s.cap)} ${esc(s.ccy || '')}</span>`;
+}
+async function renderHeatmap(){
+  const box = $('hmap');
+  if (!MK.mapa) {
+    box.innerHTML = '<div class="empty" style="position:static">Cargando mapa…</div>';
+    try { await loadMapa(); } catch (e) { box.innerHTML = '<div class="empty" style="position:static">El mapa aún no tiene datos: se generan en la próxima actualización.</div>'; return; }
+    if (S.view !== 'mercado') return;
+  }
+  const M = MK.mapa, IDX = M.indices;
+  if (!IDX[S.hmIdx]) S.hmIdx = Object.keys(IDX)[0];
+  seg($('hmIdx'), Object.fromEntries(Object.entries(IDX).map(([k, v]) => [k, v.nombre])), S.hmIdx, k => { S.hmIdx = k; S.hmZoom = null; renderHeatmap(); });
+  seg($('hmPer'), keysAsLabels(Object.keys(HM_PER)), S.hmPer, k => { S.hmPer = k; renderHeatmap(); });
+  $('hmAsof').textContent = M.asof ? `Cierre ${fDate(M.asof)}` : '';
+  const pi = HM_PER[S.hmPer], scale = HM_SCALE[pi];
+  const stocks = [...new Set(IDX[S.hmIdx].t)].map(t => ({ t, ...M.s[t] })).filter(s => s.cap > 0);
+  const bySec = new Map();
+  for (const s of stocks) {
+    const sec = secES(s.sec), ind = s.ind || sec;
+    if (!bySec.has(sec)) bySec.set(sec, new Map());
+    const im = bySec.get(sec); if (!im.has(ind)) im.set(ind, []); im.get(ind).push(s);
+  }
+  let secs = [...bySec].map(([name, inds]) => {
+    const list = [...inds].map(([iname, l]) => ({ name:iname, list:l.map(s => ({ ...s, v:s.cap })).sort((a, b) => b.v - a.v), v:l.reduce((x, s) => x + s.cap, 0) })).sort((a, b) => b.v - a.v);
+    return { name, inds:list, v:list.reduce((x, i) => x + i.v, 0) };
+  }).sort((a, b) => b.v - a.v);
+  if (S.hmZoom && !secs.some(s => s.name === S.hmZoom)) S.hmZoom = null;
+  const zoomed = !!S.hmZoom;
+  if (zoomed) secs = secs.filter(s => s.name === S.hmZoom);
+  $('hmCrumb').innerHTML = zoomed ? `<button data-hmz="">← ${esc(IDX[S.hmIdx].nombre)}</button><span class="lab">${esc(S.hmZoom)}</span>`
+    : `<span class="lab">${stocks.length} empresas · ${secs.length} sectores</span>`;
+  const W = box.clientWidth, H = box.clientHeight; let html = '';
+  for (const sr of squarify(secs, 0, 0, W, H)) {
+    const sec = sr.it, head = sr.h > 44 && sr.w > 40 ? 15 : 0;
+    html += `<div class="hs ${zoomed ? '' : 'zoomable'}" data-sec="${esc(sec.name)}" style="left:${sr.x + 1}px;top:${sr.y + 1}px;width:${sr.w - 2}px;height:${sr.h - 2}px">${head ? `<span>${esc(sec.name)}</span>` : ''}</div>`;
+    for (const ir of squarify(sec.inds, sr.x + 2, sr.y + 1 + head, sr.w - 4, sr.h - 3 - head)) {
+      const ind = ir.it, ih = zoomed && ir.h > 44 && ir.w > 56 ? 12 : 0;
+      if (ih) html += `<div class="hi" style="left:${ir.x}px;top:${ir.y}px;width:${ir.w}px;height:${ih}px"><span>${esc(ind.name)}</span></div>`;
+      for (const kr of squarify(ind.list, ir.x, ir.y + ih, ir.w, ir.h - ih)) {
+        const s = kr.it, r = s.r?.[pi], c = hmColor(r, scale), w = kr.w - 1, h = kr.h - 1;
+        const fs = Math.max(8, Math.min(24, Math.sqrt(w * h) / 4.2));
+        const lbl = w > 20 && h > 11 ? `<b style="font-size:${fs.toFixed(0)}px">${esc(shortT(s.t))}</b>${h > fs * 2.3 && w > 32 ? `<small style="font-size:${Math.max(8, fs * .62).toFixed(0)}px">${pctS(r, pi < 2 ? 2 : 1)}%</small>` : ''}` : '';
+        html += `<div class="hk ${c.c}" data-t="${esc(s.t)}" style="left:${kr.x.toFixed(1)}px;top:${kr.y.toFixed(1)}px;width:${Math.max(0, w).toFixed(1)}px;height:${Math.max(0, h).toFixed(1)}px;background:${c.bg}">${lbl}</div>`;
+      }
+    }
+  }
+  box.innerHTML = html;
+  const steps = [-1, -.66, -.33, 0, .33, .66, 1];
+  $('hmLegend').innerHTML = `<span>−${num(scale * 100, 0)} %</span>${steps.map(k => `<i style="background:${hmColor(k * scale || 1e-9, scale).bg}"></i>`).join('')}<span>+${num(scale * 100, 0)} %</span>`;
+  const ranked = stocks.filter(s => s.r?.[pi] != null).sort((a, b) => b.r[pi] - a.r[pi]);
+  const row = s => ({ name:s.n, sub:shortT(s.t), r:s.r[pi], d: pi < 2 ? 2 : 1, t:s.t });
+  $('hmUp').innerHTML = bars(ranked.slice(0, 6).map(row));
+  $('hmDown').innerHTML = bars(ranked.slice(-6).reverse().map(row));
+}
+{
+  const box = $('hmap');
+  box.addEventListener('pointerdown', e => { MK.lastPointer = e.pointerType; });
+  box.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse' || tipEl.classList.contains('pin')) return;
+    const k = e.target.closest('.hk'); if (!k) { hideTip(); return; }
+    showTip(stockCard(k.dataset.t), e.clientX, e.clientY);
+  });
+  box.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && !tipEl.classList.contains('pin')) hideTip(); });
+  box.addEventListener('click', e => {
+    const k = e.target.closest('.hk'), sc = e.target.closest('.hs');
+    if (k) {
+      if (MK.lastPointer === 'mouse') { hideTip(); openStock(k.dataset.t); return; }
+      const sec = secES(MK.mapa.s[k.dataset.t].sec);
+      showTip(stockCard(k.dataset.t) + `<div class="actions" style="margin-top:8px"><button class="btn small" data-open="${esc(k.dataset.t)}">Ver análisis</button>${S.hmZoom ? '' : `<button class="btn ghost small" data-hmz="${esc(sec)}">Ampliar ${esc(sec)}</button>`}</div>`, e.clientX, e.clientY, true);
+      return;
+    }
+    if (sc && !S.hmZoom) { S.hmZoom = sc.dataset.sec; hideTip(); renderHeatmap(); }
+  });
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (S.view === 'mercado' && MK.mapa) renderHeatmap(); }, 150); });
+}
+
+// ----- Análisis de acciones -----
+const MET = [
+  { g:'Valoración', k:'perf', l:'PER adelantado', f:'x', lo:true, tip:'Precio entre el beneficio por acción que esperan los analistas para los próximos 12 meses. Es lo que pagas por cada euro de beneficio futuro: más bajo suele ser más barato.' },
+  { g:'Valoración', k:'per', l:'PER', f:'x', lo:true, tip:'Precio entre el beneficio por acción de los últimos 12 meses. No sale si la empresa tiene pérdidas.' },
+  { g:'Valoración', k:'peg', l:'PEG', f:'x', lo:true, tip:'PER dividido entre el crecimiento esperado del beneficio. Por debajo de 1 sugiere que el precio no recoge todo su crecimiento.' },
+  { g:'Valoración', k:'evebitda', l:'EV / EBITDA', f:'x', lo:true, tip:'Valor de empresa (capitalización + deuda − caja) entre el EBITDA. Permite comparar empresas con distinta deuda: más bajo, más barata.' },
+  { g:'Valoración', k:'pvc', l:'Precio / valor contable', f:'x', lo:true, tip:'Capitalización entre el patrimonio neto contable. Muy usado en bancos y aseguradoras: por debajo de 1 cotiza por menos de lo que valen sus fondos propios en libros.' },
+  { g:'Valoración', k:'pv', l:'Precio / ventas', f:'x', lo:true, tip:'Capitalización entre los ingresos de los últimos 12 meses. Útil cuando no hay beneficios o los márgenes cambian mucho.' },
+  { g:'Valoración', k:'fcfy', l:'Rentab. flujo de caja libre', f:'%', tip:'Flujo de caja libre anual entre la capitalización: el dinero que genera el negocio, después de invertir, por cada euro que vale en bolsa. Más alto, mejor.' },
+  { g:'Rentabilidad', k:'mb', l:'Margen bruto', f:'%', tip:'Lo que queda de cada euro de ventas tras pagar el coste directo de lo vendido. Indica poder de fijación de precios.' },
+  { g:'Rentabilidad', k:'mo', l:'Margen operativo', f:'%', tip:'Beneficio de explotación entre ventas: lo que gana el negocio antes de intereses e impuestos.' },
+  { g:'Rentabilidad', k:'mn', l:'Margen neto', f:'%', tip:'Beneficio neto entre ventas: lo que llega al accionista de cada euro facturado.' },
+  { g:'Rentabilidad', k:'roe', l:'ROE', f:'%', tip:'Beneficio neto entre fondos propios: lo que rinde el dinero de los accionistas. Ojo: mucha deuda lo infla.' },
+  { g:'Rentabilidad', k:'roa', l:'ROA', f:'%', tip:'Beneficio neto entre activos totales: lo eficiente que es usando todo lo que tiene.' },
+  { g:'Crecimiento', k:'cing', l:'Crecimiento de ingresos', f:'±', tip:'Variación de las ventas del último trimestre frente al mismo trimestre del año anterior.' },
+  { g:'Crecimiento', k:'cben', l:'Crecimiento del beneficio', f:'±', tip:'Variación del beneficio del último trimestre frente al mismo trimestre del año anterior.' },
+  { g:'Deuda y liquidez', k:'deudaebitda', l:'Deuda / EBITDA', f:'x', lo:true, tip:'Años de EBITDA que necesitaría para devolver toda su deuda. Por encima de 3–4 suele considerarse elevado (no aplica a bancos).' },
+  { g:'Deuda y liquidez', k:'dnebitda', l:'Deuda neta / EBITDA', f:'x', lo:true, tip:'Como Deuda / EBITDA pero restando la caja. Si es negativa, tiene más caja que deuda.' },
+  { g:'Deuda y liquidez', k:'dpat', l:'Deuda / patrimonio', f:'x', lo:true, tip:'Deuda total entre fondos propios: cuánto se financia con deuda frente a capital de los accionistas.' },
+  { g:'Deuda y liquidez', k:'liq', l:'Liquidez corriente', f:'x', tip:'Activo corriente entre pasivo corriente: capacidad de pagar lo que vence en el próximo año. Por encima de 1 cubre sus obligaciones a corto plazo.' },
+  { g:'Dividendo y riesgo', k:'divy', l:'Rentabilidad por dividendo', f:'%', tip:'Dividendo anual por acción entre el precio actual.' },
+  { g:'Dividendo y riesgo', k:'payout', l:'Payout', f:'%', tip:'Parte del beneficio que se reparte como dividendo. Más del 80–90 % puede ser difícil de mantener.' },
+  { g:'Dividendo y riesgo', k:'beta', l:'Beta', f:'n', tip:'Cuánto se mueve frente al mercado: 1 igual que el mercado, más de 1 más volátil, menos de 1 más estable.' },
+];
+const fmtMet = (v, f) => v == null || !isFinite(v) ? '—' : f === 'x' ? `${num(v, 1)}x` : f === '%' ? `${num(v * 100, 1)} %` : f === '±' ? pct(v, 1) : num(v, 2);
+function metricsOf(t){
+  const f = MK.fund[t]; if (!f) return null;
+  const s = MK.mapa?.s[t] || {}, p = f.p ?? s.p, cap = f.capn ?? f.cap, pos = x => x != null && x > 0 ? x : null;
+  const same = !f.fccy || f.fccy === f.ccy;
+  return { perf:pos(f.perf_h ?? f.perf), per:pos(f.per_h ?? f.per), peg:pos(f.peg), evebitda:pos(f.evebitda_h ?? f.evebitda),
+    pvc:pos(f.pvc_h ?? f.pvc), pv:pos(f.pv_h ?? f.pv), fcfy: same && f.fcf != null && cap ? f.fcf / cap : null,
+    mb:f.mb, mo:f.mo, mn:f.mn, roe:f.roe, roa:f.roa, cing:f.cing, cben:f.cben,
+    deudaebitda: f.ebitda > 0 && f.deuda != null ? f.deuda / f.ebitda : null,
+    dnebitda: f.ebitda > 0 && f.deuda != null ? (f.deuda - (f.caja || 0)) / f.ebitda : null,
+    dpat: f.dpat != null ? f.dpat / 100 : null, liq:f.liq, divy: p ? (f.divt || 0) / p : null, payout:f.payout, beta:f.beta,
+    pot: f.objm && p && (f.nan || 0) >= 3 ? f.objm / p - 1 : null, m3:s.r?.[3] ?? null, m12:s.r?.[5] ?? null };
+}
+function peersOf(t, n = 5){
+  const F = MK.fund, me = F[t]; if (!me) return [];
+  const cap = me.capn ?? me.cap ?? 0;
+  const dist = u => { const c = F[u].capn ?? F[u].cap; return c && cap ? Math.abs(Math.log(c / cap)) : 99; };
+  const pool = k => Object.keys(F).filter(u => u !== t && F[u][k] && F[u][k] === me[k] && (!me.nl || F[u].nl !== me.nl)).sort((a, b) => dist(a) - dist(b));
+  let out = me.ind ? pool('ind').slice(0, n) : [];
+  if (out.length < 3 && me.sec) out = [...out, ...pool('sec').filter(u => !out.includes(u))].slice(0, n);
+  return out;
+}
+const CATS = [
+  { k:'Rentabilidad', m:[['mo', 1], ['mn', 1], ['roe', 1], ['roa', 1]], tip:'Márgenes, ROE y ROA frente a las empresas de su sector.' },
+  { k:'Crecimiento', m:[['cing', 1], ['cben', 1]], tip:'Crecimiento de ingresos y beneficio frente a su sector.' },
+  { k:'Flujo de caja', m:[['fcfy', 1], ['liq', 1]], tip:'Flujo de caja libre sobre capitalización y liquidez corriente frente a su sector.' },
+  { k:'Deuda', m:[['dnebitda', -1], ['dpat', -1]], tip:'Deuda neta sobre EBITDA y deuda sobre patrimonio: menos deuda puntúa más.' },
+  { k:'Valoración relativa', m:[['perf', -1], ['evebitda', -1], ['pv', -1]], tip:'PER adelantado, EV/EBITDA y precio/ventas: más barata que su sector puntúa más.' },
+  { k:'Momento', m:[['m3', 1], ['m12', 1]], tip:'Rentabilidad de la acción a 3 meses y a 1 año frente a su sector.' },
+];
+function healthOf(t){
+  const me = MK.fund[t]; let uni = Object.keys(MK.fund).filter(u => MK.fund[u].sec === me.sec);
+  if (uni.length < 12) uni = Object.keys(MK.fund);
+  const rank = (k, dir) => {
+    const v = MK.metrics[t]?.[k]; if (v == null || !isFinite(v)) return null;
+    const vals = uni.map(u => MK.metrics[u]?.[k]).filter(x => x != null && isFinite(x)); if (vals.length < 5) return null;
+    let below = 0, eq = 0; for (const x of vals) { if (x < v) below++; else if (x === v) eq++; }
+    const p = (below + eq / 2) / vals.length; return dir > 0 ? p : 1 - p;
+  };
+  const cats = CATS.map(c => { const ps = c.m.map(([k, d]) => rank(k, d)).filter(x => x != null); return { ...c, s: ps.length ? 1 + 4 * ps.reduce((a, b) => a + b, 0) / ps.length : null }; });
+  const ok = cats.filter(c => c.s != null);
+  return { cats, total: ok.length ? ok.reduce((a, c) => a + c.s, 0) / ok.length : null, n:uni.length };
+}
+const HEALTH_L = s => s >= 4.2 ? 'Excelente' : s >= 3.4 ? 'Buena' : s >= 2.6 ? 'Justa' : s >= 1.8 ? 'Débil' : 'Mala';
+function fairOf(t){
+  const f = MK.fund[t], m = MK.metrics[t], d = MK.det[t] || {}, p = f.p ?? MK.mapa?.s[t]?.p;
+  if (!p || !m) return null;
+  const pr = peersOf(t, 8), med = k => median(pr.map(u => MK.metrics[u]?.[k]).filter(v => v != null && v > 0));
+  const models = [];
+  if (f.objm && (f.nan || 0) >= 3) models.push({ k:'Objetivo de los analistas', v:f.objm, tip:`Precio objetivo medio a 12 meses de ${num(f.nan, 0)} analistas.` });
+  const mPer = med('perf');
+  if (m.perf && mPer) models.push({ k:'PER de competidores', v:p * mPer / m.perf, tip:`Precio si cotizara al PER adelantado mediano de sus competidores: ${num(mPer, 1)}x frente a ${num(m.perf, 1)}x.` });
+  const mEv = med('evebitda');
+  if (m.evebitda && mEv && f.ev && f.cap) { const v = p * (1 + (mEv / m.evebitda - 1) * f.ev / f.cap); if (v > 0) models.push({ k:'EV/EBITDA de competidores', v, tip:`Precio si su valor de empresa cotizara al EV/EBITDA mediano de sus competidores (${num(mEv, 1)}x frente a ${num(m.evebitda, 1)}x), con la misma deuda neta.` }); }
+  const mPb = med('pvc');
+  if (/Financ/.test(f.sec || '') && m.pvc && mPb) models.push({ k:'P/VC de competidores', v:p * mPb / m.pvc, tip:`Precio si cotizara al precio/valor contable mediano de sus competidores: ${num(mPb, 2)}x frente a ${num(m.pvc, 2)}x. Es el método habitual en bancos.` });
+  if (m.fcfy > 0) {
+    let g = d.est_bpa?.['+1y']?.c ?? f.cben ?? f.cing ?? .05; g = Math.max(-.05, Math.min(.2, g));
+    const r = Math.max(.07, Math.min(.12, .04 + (f.beta ?? 1) * .055)), gT = .025;
+    let x = m.fcfy, val = 0;
+    for (let y = 1; y <= 5; y++) { x *= 1 + g + (gT - g) * (y - 1) / 4; val += x / (1 + r) ** y; }
+    val += x * (1 + gT) / (r - gT) / (1 + r) ** 5;
+    models.push({ k:'Flujos de caja descontados', v:p * val, tip:`Valor hoy del flujo de caja libre de los próximos 5 años (crece un ${num(g * 100, 1)} % y converge al 2,5 %) más un valor terminal, descontado al ${num(r * 100, 1)} % según su beta.` });
+  }
+  const ok = models.filter(x => x.v > p * .2 && x.v < p * 5);
+  const fv = ok.length ? median(ok.map(x => x.v)) : null;
+  return { p, models, fv, up: fv ? fv / p - 1 : null };
+}
+const RECENT_K = 'cartera.recent';
+const recent = () => { try { return JSON.parse(localStorage.getItem(RECENT_K) || '[]'); } catch (e) { return []; } };
+function pushRecent(t){ try { localStorage.setItem(RECENT_K, JSON.stringify([t, ...recent().filter(x => x !== t)].slice(0, 8))); } catch (e) {} }
+function openStock(t){
+  S.stock = t; pushRecent(t); S.view = 'acciones';
+  for (const k in VIEWS) $('v-' + k).hidden = k !== S.view;
+  renderNav(); renderView(); window.scrollTo({ top:0 });
+}
+let searchReady = false;
+function setupSearch(){
+  if (searchReady) return; searchReady = true;
+  const q = $('stQ'), res = $('stRes'); let sel = 0, items = [];
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const draw = () => { res.innerHTML = items.map((t, i) => `<button role="option" data-pick="${esc(t)}" class="${i === sel ? 'on' : ''}"><span>${esc(MK.mapa.s[t].n)}</span><span class="lab">${esc(t)}</span></button>`).join(''); res.style.display = items.length ? 'block' : 'none'; };
+  const pick = t => { items = []; draw(); q.value = ''; q.blur(); openStock(t); };
+  q.addEventListener('input', () => {
+    const v = norm(q.value.trim()); if (!v || !MK.mapa) { items = []; draw(); return; }
+    const score = (t, s) => { const T = norm(t), n = norm(s.n || ''); return T === v || norm(shortT(t)) === v ? 0 : T.startsWith(v) ? 1 : n.startsWith(v) ? 2 : n.includes(v) ? 3 : 9; };
+    items = Object.entries(MK.mapa.s).map(([t, s]) => [t, score(t, s), s.cap || 0]).filter(x => x[1] < 9).sort((a, b) => a[1] - b[1] || b[2] - a[2]).slice(0, 8).map(x => x[0]);
+    sel = 0; draw();
+  });
+  q.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { sel = Math.min(items.length - 1, sel + 1); draw(); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { sel = Math.max(0, sel - 1); draw(); e.preventDefault(); }
+    else if (e.key === 'Enter' && items[sel]) pick(items[sel]);
+    else if (e.key === 'Escape') { items = []; draw(); }
+  });
+  res.addEventListener('click', e => { const b = e.target.closest('[data-pick]'); if (b) pick(b.dataset.pick); });
+  document.addEventListener('click', e => { if (!e.target.closest('.search')) { items = []; draw(); } });
+}
+const cardHead = (title, extra = '') => `<div class="cell-head"><h2 class="title">${title}</h2>${extra}</div>`;
+async function renderStock(){
+  setupSearch();
+  try { await Promise.all([loadMapa(), loadFund()]); }
+  catch (e) { $('stHead').innerHTML = '<div class="empty">El análisis aún no tiene datos: se generan en la próxima actualización.</div>'; return; }
+  if (!MK.metrics) MK.metrics = Object.fromEntries(Object.keys(MK.fund).map(t => [t, metricsOf(t)]));
+  let t = S.stock || recent()[0] || 'AAPL'; if (!MK.mapa.s[t]) t = Object.keys(MK.mapa.s)[0]; S.stock = t;
+  $('stRecent').innerHTML = recent().filter(x => MK.mapa.s[x]).map(x => `<button data-open="${esc(x)}" ${x === t ? 'aria-pressed="true" style="border-color:var(--ink); color:var(--ink)"' : ''}>${esc(shortT(x))}</button>`).join('');
+  try { await loadDet(t); } catch (e) {}
+  if (S.view !== 'acciones' || S.stock !== t) return;
+  const s = MK.mapa.s[t], f = MK.fund[t], d = MK.det[t] || {};
+  stHead(t, s, f || {}, d);
+  const ids = ['stFair', 'stAnalysts', 'stHealth', 'stChart', 'stMetrics', 'stPeers', 'stFin'];
+  if (!f) { ids.forEach(id => { $(id).innerHTML = ''; $(id).hidden = true; }); $('stFair').hidden = false; $('stFair').innerHTML = cardHead('ficha') + '<div class="empty">Su ficha llega en la próxima actualización de datos.</div>'; return; }
+  ids.forEach(id => { $(id).hidden = false; });
+  stFair(t, f); stAnalysts(t, f, d); stHealth(t); stChart(t, f, d); stMetrics(t); stPeers(t); stFin(t, f, d);
+}
+function stHead(t, s, f, d){
+  const ccy = f.ccy || s.ccy || '', p = f.p ?? s.p, day = s.r?.[0];
+  const idxs = Object.values(MK.mapa.indices).filter(i => i.t.includes(t)).map(i => i.nombre).join(' · ');
+  let range = '';
+  if (f.min52 && f.max52 && p) {
+    const lo = Math.min(f.min52, p), hi = Math.max(f.max52, p), at = x => ((x - lo) / (hi - lo || 1) * 100).toFixed(1);
+    range = `<div class="range" aria-hidden="true"><i style="left:${at(p)}%"></i></div><div class="range-l"><span>Mín. 52 sem. ${num(f.min52, 2)}</span><span>Máx. 52 sem. ${num(f.max52, 2)}</span></div>`;
+  }
+  const m = MK.metrics[t] || {};
+  const kv = [['Capitalización', `${big(f.capn ?? s.cap)} ${esc(ccy)}`], ['1 año', `<span class="${cls(s.r?.[5])}">${pct(s.r?.[5], 1)}</span>`], ['En el año', `<span class="${cls(s.r?.[4])}">${pct(s.r?.[4], 1)}</span>`],
+    ['Dividendo', fmtMet(m.divy, '%')], ['PER adelantado', fmtMet(m.perf, 'x')], ['Beta', fmtMet(f.beta, 'n')], ['Empleados', d.empleados ? big(d.empleados) : '—'], ['Ficha', f.upd ? fDate(f.upd) : '—']];
+  $('stHead').innerHTML = `<div class="st-head"><div style="min-width:0"><span class="lab">${esc(t)}${idxs ? ' · ' + esc(idxs) : ''}</span>
+      <div class="st-name">${esc(f.nl || s.n)}</div><span class="lab">${esc(secES(f.sec || s.sec))}${f.ind ? ' › ' + esc(f.ind) : ''}${f.pais ? ' · ' + esc(f.pais) : ''}</span></div>
+      <div style="text-align:right"><div class="st-price">${p != null ? num(p, 2) : '—'}<small>${esc(ccy)}</small></div><div class="mono ${cls(day)}" style="margin-top:6px">${pct(day)} último día</div></div></div>
+    ${range}<div class="kv">${kv.map(([k, v]) => `<div><span class="lab">${k}</span><b>${v}</b></div>`).join('')}</div>
+    ${d.resumen ? `<details class="about"><summary>Sobre la empresa</summary><p>${esc(d.resumen)}</p>${d.web ? `<p class="lab">${esc(d.web.replace(/^https?:\/\//, ''))}</p>` : ''}</details>` : ''}`;
+}
+function stFair(t, f){
+  const el = $('stFair'), fv = fairOf(t);
+  const tipFv = 'Estimación propia: mediana de varios métodos (objetivo de analistas, múltiplos de competidores y flujos de caja descontados). Orientativa: no es una recomendación de inversión.';
+  if (!fv || fv.fv == null) { el.innerHTML = cardHead(`valor razonable${Q(tipFv)}`) + '<div class="empty">No hay datos suficientes para estimarlo.</div>'; return; }
+  const up = fv.up, tag = up > .15 ? ['Infravalorada', 'pos'] : up < -.15 ? ['Sobrevalorada', 'neg'] : ['Precio justo', ''];
+  const g = Math.max(0, Math.min(100, 50 + up / .45 * 50));
+  el.innerHTML = cardHead(`valor razonable${Q(tipFv)}`, `<span class="fv-tag ${tag[1]}">${tag[0]}</span>`) + `
+    <div class="fv-big">${num(fv.fv, 2)}<small>${esc(f.ccy || '')}</small></div>
+    <div class="mono"><span class="${cls(up)}">${pct(up, 1)}</span> <span class="lab">potencial frente a ${num(fv.p, 2)}</span></div>
+    <div class="gauge" aria-hidden="true"><i style="left:${g.toFixed(1)}%"></i></div>
+    <div class="range-l"><span>Sobrevalorada</span><span>Justa</span><span>Infravalorada</span></div>
+    <table class="tbl"><thead><tr><th>Método</th><th>Valor</th><th>Potencial</th></tr></thead><tbody>
+    ${fv.models.map(x => `<tr><td>${esc(x.k)}${Q(x.tip)}</td><td>${num(x.v, 2)}</td><td class="${cls(x.v / fv.p - 1)}">${pct(x.v / fv.p - 1, 1)}</td></tr>`).join('')}</tbody></table>
+    <p class="disclaimer">Modelos simples con datos de Yahoo Finance. Orientativo, no es una recomendación.</p>`;
+}
+function stAnalysts(t, f, d){
+  const el = $('stAnalysts'), n = f.nan || 0, p = f.p ?? MK.mapa.s[t].p;
+  const tipC = 'Consenso de los analistas que cubren la acción, de 1 (compra fuerte) a 5 (venta fuerte), y su precio objetivo a 12 meses.';
+  if (!n) { el.innerHTML = cardHead(`analistas${Q(tipC)}`) + '<div class="empty">Sin cobertura de analistas.</div>'; return; }
+  const rec = f.rec, lbl = rec == null ? '—' : rec <= 1.5 ? 'Compra fuerte' : rec <= 2.5 ? 'Compra' : rec <= 3.5 ? 'Mantener' : rec <= 4.5 ? 'Venta' : 'Venta fuerte';
+  const r0 = (d.recs || []).find(r => r.p === '0m') || (d.recs || [])[0];
+  const parts = r0 ? [['Compra fuerte', r0.sb, 'var(--pos-fill)'], ['Compra', r0.b, 'color-mix(in srgb, var(--pos-fill) 50%, var(--cell))'], ['Mantener', r0.h, 'var(--line-2)'],
+    ['Venta', r0.s, 'color-mix(in srgb, var(--neg-fill) 50%, var(--cell))'], ['Venta fuerte', r0.ss, 'var(--neg-fill)']].filter(x => x[1] > 0) : [];
+  const lo = d.obj?.low ?? f.objb, hi = d.obj?.high ?? f.obja, mean = d.obj?.mean ?? f.objm;
+  let tgt = '';
+  if (lo && hi && mean && p) {
+    const a = Math.min(lo, p), b = Math.max(hi, p), at = x => ((x - a) / (b - a || 1) * 100).toFixed(1);
+    tgt = `<div class="lab" style="margin-top:20px">Precio objetivo${Q('Rango de precios objetivo a 12 meses: el más bajo, el medio (marca de color) y el más alto. La marca gris es el precio actual.')}</div>
+      <div class="range"><em style="left:${at(p)}%"></em><i style="left:${at(mean)}%"></i></div>
+      <div class="range-l"><span>${num(lo, 2)}</span><span style="color:var(--accent)">Media ${num(mean, 2)} (${pct(mean / p - 1, 1)})</span><span>${num(hi, 2)}</span></div>`;
+  }
+  const est = (o, isEps) => ['0y', '+1y'].map(k => o?.[k] ? `<td>${isEps ? num(o[k].m, 2) : big(o[k].m)}</td><td class="${cls(o[k].c)}">${pct(o[k].c, 1)}</td>` : '<td>—</td><td>—</td>').join('');
+  el.innerHTML = cardHead(`analistas${Q(tipC)}`, `<span class="lab">${num(n, 0)} analistas</span>`) + `
+    <div class="fv-big" style="font-size:34px">${lbl}</div><div class="lab">Consenso ${rec != null ? num(rec, 1) : '—'} sobre 5</div>
+    ${parts.length ? `<div class="recbar" aria-hidden="true">${parts.map(x => `<i style="flex:${x[1]}; background:${x[2]}"></i>`).join('')}</div>
+      <div class="recl">${parts.map(x => `<span style="--c:${x[2]}">${x[0]} ${x[1]}</span>`).join('')}</div>` : ''}
+    ${tgt}
+    ${d.est_bpa || d.est_ing ? `<div class="tbl-wrap"><table class="tbl" style="margin-top:20px"><thead><tr><th>Estimaciones${Q('Media de lo que esperan los analistas para este ejercicio y el siguiente, y su crecimiento frente al año anterior.')}</th><th>Este año</th><th></th><th>Próximo</th><th></th></tr></thead><tbody>
+      <tr><td>BPA</td>${est(d.est_bpa, true)}</tr><tr><td>Ingresos</td>${est(d.est_ing, false)}</tr></tbody></table></div>` : ''}`;
+}
+function stHealth(t){
+  const el = $('stHealth'), h = healthOf(t);
+  const tip = `Puntuación de 1 a 5 de cada aspecto, según el percentil de la empresa frente a las ${h.n} empresas de su sector en los índices seguidos.`;
+  if (h.total == null) { el.innerHTML = cardHead(`salud financiera${Q(tip)}`) + '<div class="empty">Sin datos suficientes.</div>'; return; }
+  const dots = (s, top) => `<div class="score ${top ? 'top' : ''}" aria-hidden="true">${[1, 2, 3, 4, 5].map(i => `<i class="${s >= i - .5 ? 'on' : ''}"></i>`).join('')}</div>`;
+  el.innerHTML = cardHead(`salud financiera${Q(tip)}`) + `
+    <div style="display:flex; align-items:flex-end; gap:14px; margin:6px 0 14px"><div class="fv-big" style="margin:0">${num(h.total, 1)}<small>/ 5</small></div><div><div class="fv-tag">${HEALTH_L(h.total)}</div><div style="margin-top:8px">${dots(h.total, true)}</div></div></div>
+    ${h.cats.map(c => `<div class="hrow"><div class="l">${esc(c.k)}${Q(c.tip)}</div>${c.s != null ? dots(c.s) : '<span class="lab">sin datos</span>'}<div class="v">${c.s != null ? num(c.s, 1) : '—'}</div></div>`).join('')}`;
+}
+let stChartObj;
+function stChart(t, f, d){
+  const el = $('stChart'), h = d.hist;
+  if (stChartObj) { stChartObj.destroy(); stChartObj = null; }
+  if (!h || h.p.length < 10) { el.innerHTML = cardHead('cotización') + '<div class="empty">Sin histórico todavía.</div>'; return; }
+  const per = S.stPer, yrs = { '1A':1, '3A':3, '5A':5 }[per], from = shiftDate(h.d[h.d.length - 1], -12 * yrs);
+  let i0 = h.d.findIndex(x => x >= from); if (i0 < 0) i0 = 0;
+  const dd = h.d.slice(i0), pp = h.p.slice(i0), ret = pp[pp.length - 1] / pp[0] - 1;
+  el.innerHTML = cardHead('cotización', '<div class="seg" id="stPerSeg" role="group" aria-label="Periodo"></div>') +
+    `<div class="mono"><span class="${cls(ret)}">${pct(ret, 1)}</span> <span class="lab">en ${yrs === 1 ? '1 año' : yrs + ' años'}, con dividendos</span></div><div class="chart-box"><canvas id="stCanvas" aria-label="Cotización"></canvas></div>`;
+  seg($('stPerSeg'), keysAsLabels(['1A', '3A', '5A']), per, k => { S.stPer = k; stChart(t, f, d); });
+  if (!window.Chart) return;
+  const accent = css('--accent'), ink = css('--ink'), ccy = f.ccy || '';
+  stChartObj = new Chart($('stCanvas'), { type:'line', data:{ labels:dd, datasets:[{ label:shortT(t), data:pp, borderColor:accent, borderWidth:2.2, fill:false, ...SMOOTH, pointRadius:0, pointHoverRadius:3, pointHoverBackgroundColor:accent }] }, plugins:[crosshair],
+    options:{ responsive:true, maintainAspectRatio:false, animation:false, interaction:{ mode:'index', intersect:false },
+      plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:css('--panel'), titleColor:ink, bodyColor:ink, borderColor:css('--line-2'), borderWidth:1, padding:10, cornerRadius:10, displayColors:false,
+        titleFont:{ family:'"Geist Mono", monospace', size:11 }, bodyFont:{ family:'"Geist Mono", monospace', size:12 }, callbacks:{ title: it => fDate(it[0].label), label: it => `${num(it.raw, 2)} ${ccy}` } } },
+      scales:{ x:{ display:false }, y:{ position:'right', border:{ display:false }, grid:{ color:css('--line'), drawTicks:false }, ticks:{ color:css('--muted'), padding:8, maxTicksLimit:5, font:{ family:'"Geist Mono", monospace', size:11 }, callback: v => num(v, 0) } } } } });
+}
+function stMetrics(t){
+  const el = $('stMetrics'), m = MK.metrics[t], pr = peersOf(t);
+  const groups = [...new Set(MET.map(x => x.g))];
+  const rowOf = x => {
+    const v = m[x.k], pv = pr.map(u => MK.metrics[u]?.[x.k]).filter(y => y != null && isFinite(y)), md = median(pv);
+    let strip = '';
+    if (v != null && isFinite(v) && pv.length) {
+      const all = [v, ...pv], lo = Math.min(...all), hi = Math.max(...all), at = y => ((y - lo) / (hi - lo || 1) * 100).toFixed(1);
+      strip = `<div class="strip-cmp" title="Tú frente a competidores">${pv.map(y => `<i style="left:${at(y)}%"></i>`).join('')}${md != null ? `<em style="left:${at(md)}%"></em>` : ''}<b style="left:${at(v)}%"></b></div>`;
+    }
+    return `<div class="mrow"><div class="l"><span>${esc(x.l)}</span>${Q(x.tip)}</div><div><div class="v">${fmtMet(v, x.f)}</div>${md != null ? `<div class="md">comp. ${fmtMet(md, x.f)}</div>` : ''}</div>${strip || '<div></div>'}</div>`;
+  };
+  el.innerHTML = cardHead(`métricas${Q('Cada fila compara la empresa (punto de color) con sus competidores (puntos grises); la raya es la mediana de los competidores.')}`, `<span class="lab">frente a ${pr.length} competidores</span>`) +
+    `<div class="mcols">${groups.map(g => `<div><div class="mgroup">${g}</div>${MET.filter(x => x.g === g).map(rowOf).join('')}</div>`).join('')}</div>`;
+}
+const PEER_COLS = [
+  { k:'cap', l:'Cap.', f: (u) => big(MK.fund[u].capn ?? MK.fund[u].cap) },
+  { k:'perf', l:'PER adel.', lo:true, fm:'x' }, { k:'evebitda', l:'EV/EBITDA', lo:true, fm:'x' }, { k:'dnebitda', l:'DN/EBITDA', lo:true, fm:'x' },
+  { k:'roe', l:'ROE', fm:'%' }, { k:'mn', l:'Margen neto', fm:'%' }, { k:'cing', l:'Crec. ingresos', fm:'±' }, { k:'divy', l:'Dividendo', fm:'%' },
+  { k:'pot', l:'Potencial', fm:'±' }, { k:'m12', l:'1 año', fm:'±' },
+];
+const PEER_BARS = { roe:'ROE', mn:'Margen neto', cing:'Crec. ingresos', pot:'Potencial analistas', m12:'Rentab. 1 año' };
+function stPeers(t){
+  const el = $('stPeers'), pr = peersOf(t), rows = [t, ...pr];
+  if (!pr.length) { el.innerHTML = cardHead('competidores') + '<div class="empty">Sin competidores comparables en los índices seguidos.</div>'; return; }
+  const best = {};
+  for (const c of PEER_COLS) if (c.fm) { const vals = rows.map(u => MK.metrics[u]?.[c.k]).filter(v => v != null && isFinite(v)); if (vals.length > 1) best[c.k] = c.lo ? Math.min(...vals.filter(v => v > 0)) : Math.max(...vals); }
+  el.innerHTML = cardHead(`competidores${Q('Empresas de la misma industria (o sector) en los índices seguidos, con la capitalización más parecida. Subrayado: el mejor valor de cada columna.')}`, '<div class="seg" id="peerSeg" role="group" aria-label="Métrica"></div>') +
+    `<div class="bars" id="peerBars"></div>
+    <div class="tbl-wrap"><table class="tbl" style="margin-top:18px"><thead><tr><th>Empresa</th>${PEER_COLS.map(c => `<th>${c.l}</th>`).join('')}</tr></thead><tbody>
+    ${rows.map(u => `<tr class="${u === t ? 'me' : 'pick'}" ${u === t ? '' : `data-open="${esc(u)}"`}><td>${esc(nameOf(u))} <span class="lab">${esc(shortT(u))}</span></td>${PEER_COLS.map(c => {
+      if (c.f) return `<td>${c.f(u)}</td>`; const v = MK.metrics[u]?.[c.k];
+      return `<td class="${v != null && v === best[c.k] ? 'best' : ''}">${fmtMet(v, c.fm)}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>`;
+  seg($('peerSeg'), PEER_BARS, S.peerMet, k => { S.peerMet = k; stPeers(t); });
+  $('peerBars').innerHTML = bars(rows.map(u => ({ name:nameOf(u), sub:shortT(u), r:MK.metrics[u]?.[S.peerMet] ?? null, mine:u === t, t: u === t ? null : u })).filter(r => r.r != null).sort(byR));
+}
+function stFin(t, f, d){
+  const el = $('stFin'), y = d.pyg?.y || d.caja?.y;
+  if (!y || !y.length) { el.innerHTML = cardHead('cuentas') + '<div class="empty">Cuentas anuales en camino.</div>'; return; }
+  const R = [['Ingresos', d.pyg?.ingresos, 'Ventas totales del ejercicio.'], ['EBITDA', d.pyg?.ebitda, 'Beneficio antes de intereses, impuestos, depreciaciones y amortizaciones: aproxima la caja que genera la operativa.'],
+    ['Beneficio neto', d.pyg?.beneficio, 'Lo que gana para el accionista tras todos los gastos e impuestos.'], ['Flujo de caja libre', d.caja?.fcf, 'Caja de las operaciones menos inversiones en activos: lo que queda para dividendos, recompras o reducir deuda.'],
+    ['Deuda total', d.balance?.deuda, 'Deuda financiera al cierre de cada ejercicio.']].filter(r => r[1] && r[1].some(v => v != null));
+  // Unidad por fila (en la etiqueta) y cifras cortas en las barras, para que quepan en el móvil
+  const unit = vals => { const mx = Math.max(...vals.map(v => Math.abs(v || 0))); return mx >= 1e12 ? [1e12, 'B'] : mx >= 1e9 ? [1e9, 'mil M'] : mx >= 1e6 ? [1e6, 'M'] : [1, '']; };
+  const col = (vals, i) => { const mx = Math.max(...vals.map(v => Math.abs(v || 0))) || 1, v = vals[i], [dv] = unit(vals), x = v / dv;
+    return `<div class="c"><div class="bx">${v != null ? `<i class="${v < 0 ? 'neg' : i === vals.length - 1 ? 'last' : ''}" style="--h:${(Math.abs(v) / mx * 100).toFixed(0)}%"></i>` : ''}</div>${v == null ? '—' : num(x, Math.abs(x) < 10 ? 1 : 0)}</div>`; };
+  const pad = a => [...Array(Math.max(0, 4 - a.length)).fill(null), ...a];
+  el.innerHTML = cardHead('cuentas', `<span class="lab">Anuales · ${esc(f.fccy || f.ccy || '')}</span>`) +
+    R.map(([l, vals, tip]) => `<div class="fin"><div class="l"><span>${l}<span class="lab" style="display:block">${unit(vals)[1]}</span></span>${Q(tip)}</div>${pad(vals).map((_, i, a) => col(a, i)).join('')}</div>`).join('') +
+    `<div class="fin yrs"><div></div>${pad(y).map(v => `<div class="c">${v || ''}</div>`).join('')}</div>`;
 }
 
 // ===== Movimientos =====
@@ -1060,8 +1620,10 @@ $('myiFile').onchange = async e => {
 
 // ===== Render general =====
 function renderView(){
+  if (!N || !S.res) return;   // aún cargando datos
   if (S.view === 'resumen') { renderHero(); renderPerf(); renderPositions(); renderMonths(); }
-  else if (S.view === 'mercado') renderMarket();
+  else if (S.view === 'mercado') { renderMarket(); renderHeatmap(); }
+  else if (S.view === 'acciones') renderStock();
   else if (S.view === 'desglose') { renderTreemap(); renderExposure(); }
   else renderTxs();
 }
