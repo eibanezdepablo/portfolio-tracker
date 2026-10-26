@@ -2,18 +2,18 @@
 
 | Serie | Fuente | Último dato | Puntos | Errores |
 |---|---|---|---|---|
-| i:fidelity_world | yahoo:0P0001CLDK.F | 2026-10-22 | 1981 |  |
-| i:myi_value | yahoo:0P0001T8V7.F | 2026-10-22 | 419 |  |
-| i:cobas_int | yahoo:0P0001A94B.F | 2026-10-22 | 1130 |  |
-| i:horos | yahoo:0P0001DFE8.F | 2026-10-22 | 1954 |  |
-| i:azvalor_int | yahoo:0P00016YQ5.F | 2026-10-22 | 1808 |  |
-| i:robeco_premium | yahoo:LU0203975437.LU | 2026-10-22 | 1128 |  |
-| i:jh_small_caps | yahoo:0P0001I1JP.F | 2026-10-23 | 1119 |  |
-| i:jh_life_sciences | yahoo:0P00000ITG.F | 2026-10-22 | 1927 |  |
+| i:fidelity_world | yahoo:0P0001CLDK.F | 2026-10-23 | 1982 |  |
+| i:myi_value | yahoo:0P0001T8V7.F | 2026-10-23 | 420 |  |
+| i:cobas_int | yahoo:0P0001A94B.F | 2026-10-23 | 1131 |  |
+| i:horos | yahoo:0P0001DFE8.F | 2026-10-23 | 1955 |  |
+| i:azvalor_int | yahoo:0P00016YQ5.F | 2026-10-23 | 1809 |  |
+| i:robeco_premium | yahoo:LU0203975437.LU | 2026-10-23 | 1129 |  |
+| i:jh_small_caps | yahoo:0P0001I1JP.F | 2026-10-26 | 1120 |  |
+| i:jh_life_sciences | yahoo:0P00000ITG.F | 2026-10-23 | 1928 |  |
 | i:polar_tech | yahoo:0P0001LT4H.F | 2026-10-22 | 1501 |  |
-| i:robeco_qi_em | morningstar:LU0329355670 (F000000RB9) | 2026-10-22 | 1915 |  |
-| i:robeco_energy | morningstar:LU2145461757 (F000015UJY) | 2026-10-22 | 1943 |  |
-| i:dnb_tech | morningstar:LU0302296495 (F000000JQ3) | 2026-10-22 | 1907 |  |
+| i:robeco_qi_em | morningstar:LU0329355670 (F000000RB9) | 2026-10-23 | 1916 |  |
+| i:robeco_energy | morningstar:LU2145461757 (F000015UJY) | 2026-10-23 | 1944 |  |
+| i:dnb_tech | morningstar:LU0302296495 (F000000JQ3) | 2026-10-23 | 1908 |  |
 | b:msci_world | yahoo:EUNL.DE | 2026-10-23 | 1985 |  |
 | b:acwi | yahoo:IUSQ.DE | 2026-10-23 | 1985 |  |
 | b:sp500 | yahoo:SXR8.DE | 2026-10-23 | 1985 |  |
