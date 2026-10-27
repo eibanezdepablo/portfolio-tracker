@@ -4,7 +4,7 @@
 |---|---|---|---|---|
 | i:fidelity_world | yahoo:0P0001CLDK.F | 2026-10-23 | 1982 |  |
 | i:myi_value | yahoo:0P0001T8V7.F | 2026-10-23 | 420 |  |
-| i:cobas_int | yahoo:0P0001A94B.F | 2026-10-23 | 1131 |  |
+| i:cobas_int | yahoo:0P0001A94B.F | 2026-10-23 | 1132 |  |
 | i:horos | yahoo:0P0001DFE8.F | 2026-10-23 | 1955 |  |
 | i:azvalor_int | yahoo:0P00016YQ5.F | 2026-10-23 | 1809 |  |
 | i:robeco_premium | yahoo:LU0203975437.LU | 2026-10-23 | 1129 |  |
@@ -22,7 +22,7 @@
 | b:sx5e | yahoo:SXRT.DE | 2026-10-23 | 1985 |  |
 | b:ibex | yahoo:^IBEX | 2026-10-23 | 1999 |  |
 | b:msciem | yahoo:IS3N.DE | 2026-10-23 | 1985 |  |
-| b:nikkei | yahoo:^N225 (JPY→EUR) | 2026-10-23 | 1902 |  |
+| b:nikkei | yahoo:^N225 (JPY→EUR) | 2026-10-27 | 1903 |  |
 | b:worldsc | yahoo:IUSN.DE | 2026-10-23 | 1985 |  |
 | b:worldval | yahoo:IS3S.DE | 2026-10-23 | 1985 |  |
 | b:gold | yahoo:4GLD.DE | 2026-10-23 | 1985 |  |
