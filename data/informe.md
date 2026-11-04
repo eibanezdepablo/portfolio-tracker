@@ -6,7 +6,7 @@
 | i:myi_value | yahoo:0P0001T8V7.F | 2026-11-02 | 428 |  |
 | i:cobas_int | yahoo:0P0001A94B.F | 2026-11-02 | 1138 |  |
 | i:horos | yahoo:0P0001DFE8.F | 2026-11-02 | 1963 |  |
-| i:azvalor_int | morningstar:ES0112611001 (F00000WI0D) | 2026-10-30 | 1829 | yahoo: Too Many Requests. Rate limited. Try after a while. |
+| i:azvalor_int | yahoo:0P00016YQ5.F | 2026-10-30 | 1816 |  |
 | i:robeco_premium | yahoo:LU0203975437.LU | 2026-11-02 | 1136 |  |
 | i:jh_small_caps | yahoo:0P0001I1JP.F | 2026-11-03 | 1126 |  |
 | i:jh_life_sciences | yahoo:0P00000ITG.F | 2026-11-02 | 1936 |  |
