@@ -20,9 +20,9 @@
 | b:ndx | yahoo:SXRV.DE | 2026-11-05 | 1996 |  |
 | b:stoxx600 | yahoo:EXSA.DE | 2026-11-05 | 1995 |  |
 | b:sx5e | yahoo:SXRT.DE | 2026-11-05 | 1994 |  |
-| b:ibex | yahoo:^IBEX | 2026-11-05 | 2008 |  |
+| b:ibex | yahoo:^IBEX | 2026-11-06 | 2009 |  |
 | b:msciem | yahoo:IS3N.DE | 2026-11-05 | 1994 |  |
-| b:nikkei | yahoo:^N225 (JPY→EUR) | 2026-11-05 | 1910 |  |
+| b:nikkei | yahoo:^N225 (JPY→EUR) | 2026-11-06 | 1911 |  |
 | b:worldsc | yahoo:IUSN.DE | 2026-11-05 | 1994 |  |
 | b:worldval | yahoo:IS3S.DE | 2026-11-05 | 1994 |  |
 | b:gold | yahoo:4GLD.DE | 2026-11-05 | 1994 |  |
