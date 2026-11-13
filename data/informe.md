@@ -2,39 +2,39 @@
 
 | Serie | Fuente | Último dato | Puntos | Errores |
 |---|---|---|---|---|
-| i:fidelity_world | yahoo:0P0001CLDK.F | 2026-11-10 | 1996 |  |
-| i:myi_value | yahoo:0P0001T8V7.F | 2026-11-10 | 434 |  |
-| i:cobas_int | yahoo:0P0001A94B.F | 2026-11-10 | 1144 |  |
-| i:horos | yahoo:0P0001DFE8.F | 2026-11-10 | 1968 |  |
-| i:azvalor_int | yahoo:0P00016YQ5.F | 2026-11-10 | 1821 |  |
-| i:robeco_premium | yahoo:LU0203975437.LU | 2026-11-10 | 1142 |  |
-| i:jh_small_caps | yahoo:0P0001I1JP.F | 2026-11-11 | 1132 |  |
-| i:jh_life_sciences | yahoo:0P00000ITG.F | 2026-11-10 | 1942 |  |
+| i:fidelity_world | yahoo:0P0001CLDK.F | 2026-11-11 | 1997 |  |
+| i:myi_value | yahoo:0P0001T8V7.F | 2026-11-11 | 435 |  |
+| i:cobas_int | yahoo:0P0001A94B.F | 2026-11-11 | 1145 |  |
+| i:horos | yahoo:0P0001DFE8.F | 2026-11-11 | 1969 |  |
+| i:azvalor_int | yahoo:0P00016YQ5.F | 2026-11-11 | 1822 |  |
+| i:robeco_premium | yahoo:LU0203975437.LU | 2026-11-11 | 1143 |  |
+| i:jh_small_caps | yahoo:0P0001I1JP.F | 2026-11-12 | 1133 |  |
+| i:jh_life_sciences | yahoo:0P00000ITG.F | 2026-11-11 | 1943 |  |
 | i:polar_tech | yahoo:0P0001LT4H.F | 2026-11-10 | 1515 |  |
 | i:robeco_qi_em | morningstar:LU0329355670 (F000000RB9) | 2026-11-11 | 1929 |  |
 | i:robeco_energy | morningstar:LU2145461757 (F000015UJY) | 2026-11-11 | 1957 |  |
 | i:dnb_tech | morningstar:LU0302296495 (F000000JQ3) | 2026-11-11 | 1921 |  |
-| b:msci_world | yahoo:EUNL.DE | 2026-11-12 | 1999 |  |
-| b:acwi | yahoo:IUSQ.DE | 2026-11-12 | 1999 |  |
-| b:sp500 | yahoo:SXR8.DE | 2026-11-12 | 1999 |  |
-| b:ndx | yahoo:SXRV.DE | 2026-11-12 | 2001 |  |
-| b:stoxx600 | yahoo:EXSA.DE | 2026-11-12 | 2000 |  |
-| b:sx5e | yahoo:SXRT.DE | 2026-11-12 | 1999 |  |
-| b:ibex | yahoo:^IBEX | 2026-11-12 | 2013 |  |
-| b:msciem | yahoo:IS3N.DE | 2026-11-12 | 1999 |  |
-| b:nikkei | yahoo:^N225 (JPY→EUR) | 2026-11-11 | 1914 |  |
-| b:worldsc | yahoo:IUSN.DE | 2026-11-12 | 1999 |  |
-| b:worldval | yahoo:IS3S.DE | 2026-11-12 | 1999 |  |
-| b:gold | yahoo:4GLD.DE | 2026-11-12 | 1999 |  |
-| b:agg | yahoo:EUNA.DE | 2026-11-12 | 2001 |  |
-| s:tec | yahoo:XDWT.DE | 2026-11-12 | 1999 |  |
-| s:fin | yahoo:XDWF.DE | 2026-11-12 | 1999 |  |
-| s:sal | yahoo:XDWH.DE | 2026-11-12 | 1999 |  |
-| s:cic | yahoo:XDWC.DE | 2026-11-12 | 1999 |  |
-| s:ind | yahoo:XDWI.DE | 2026-11-12 | 1999 |  |
-| s:com | yahoo:XWTS.DE | 2026-11-12 | 1999 |  |
-| s:def | yahoo:XDWS.DE | 2026-11-12 | 1999 |  |
-| s:ene | yahoo:XDW0.DE | 2026-11-12 | 1999 |  |
-| s:mat | yahoo:XDWM.DE | 2026-11-12 | 1999 |  |
-| s:inm | yahoo:IQQ6.DE | 2026-11-12 | 1999 |  |
-| s:uti | yahoo:XDWU.DE | 2026-11-12 | 1999 |  |
+| b:msci_world | yahoo:EUNL.DE | 2026-11-11 | 1998 |  |
+| b:acwi | yahoo:IUSQ.DE | 2026-11-11 | 1998 |  |
+| b:sp500 | yahoo:SXR8.DE | 2026-11-11 | 1998 |  |
+| b:ndx | yahoo:SXRV.DE | 2026-11-11 | 2000 |  |
+| b:stoxx600 | yahoo:EXSA.DE | 2026-11-11 | 1999 |  |
+| b:sx5e | yahoo:SXRT.DE | 2026-11-11 | 1998 |  |
+| b:ibex | yahoo:^IBEX | 2026-11-11 | 2012 |  |
+| b:msciem | yahoo:IS3N.DE | 2026-11-11 | 1998 |  |
+| b:nikkei | yahoo:^N225 (JPY→EUR) | 2026-11-13 | 1915 |  |
+| b:worldsc | yahoo:IUSN.DE | 2026-11-11 | 1998 |  |
+| b:worldval | yahoo:IS3S.DE | 2026-11-11 | 1998 |  |
+| b:gold | yahoo:4GLD.DE | 2026-11-11 | 1998 |  |
+| b:agg | yahoo:EUNA.DE | 2026-11-11 | 2000 |  |
+| s:tec | yahoo:XDWT.DE | 2026-11-11 | 1998 |  |
+| s:fin | yahoo:XDWF.DE | 2026-11-11 | 1998 |  |
+| s:sal | yahoo:XDWH.DE | 2026-11-11 | 1998 |  |
+| s:cic | yahoo:XDWC.DE | 2026-11-11 | 1998 |  |
+| s:ind | yahoo:XDWI.DE | 2026-11-11 | 1998 |  |
+| s:com | yahoo:XWTS.DE | 2026-11-11 | 1998 |  |
+| s:def | yahoo:XDWS.DE | 2026-11-11 | 1998 |  |
+| s:ene | yahoo:XDW0.DE | 2026-11-11 | 1998 |  |
+| s:mat | yahoo:XDWM.DE | 2026-11-11 | 1998 |  |
+| s:inm | yahoo:IQQ6.DE | 2026-11-11 | 1998 |  |
+| s:uti | yahoo:XDWU.DE | 2026-11-11 | 1998 |  |
